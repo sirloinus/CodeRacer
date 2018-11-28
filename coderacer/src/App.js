@@ -6,6 +6,7 @@ import { Button } from 'semantic-ui-react';
 class App extends Component {
   render() {
     return (
+
       <Button>TEST BUTTON</Button>
     )
   }
