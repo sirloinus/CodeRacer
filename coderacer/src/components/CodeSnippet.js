@@ -22,6 +22,7 @@ const CodeSnippet = ({ code }) => {
                 name="UNIQUE_ID_OF_DIV"
                 editorProps={{ $blockScrolling: true }}
                 readOnly='true'
+                fontSize='12px'
             />
         </div>
     )
