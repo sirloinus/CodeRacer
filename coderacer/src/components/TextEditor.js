@@ -7,21 +7,22 @@ import 'brace/theme/monokai';
 class TextEditor extends React.Component {
 
     render() {
-        const { row, newValue, onChange } = this.props
+        const { row, newValue, handleTextChange } = this.props
+        const height = row * 16
         return (
             <div className="snippet_wrapper">
                 <AceEditor
                     value={newValue}
-                    height={row * 16}
+                    height={height}
                     mode="javascript"
                     width="100%"
                     theme="monokai"
-                    onChange={onChange}
+                    onChange={handleTextChange}
                     name="UNIQUE_ID_OF_DIV"
                     editorProps={{ $blockScrolling: true }}
+                    tabSize={2}
                 />
             </div>
-
         )
     }
 
