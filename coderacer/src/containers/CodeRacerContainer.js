@@ -10,7 +10,9 @@ class CodeRacerContainer extends React.Component {
         row: 1,
         newValue: '',
         textPosition: 0,
-        progressPercent: 67,
+        progressPercent: 0,
+        percentageIncrement: 0,
+        codeLength: 0
     }
 
     compareCode = (newValue) => {
@@ -19,24 +21,34 @@ class CodeRacerContainer extends React.Component {
             console.log('YOUVE WON')
         }  
         if (this.state.code[position] === newValue[position]) {
-            // this.state.code.includes(this.state.newValue, position)) 
             console.log("wooo")
             const newPosition = position + 1
             this.setState({ textPosition: newPosition})
-        } else {
-            console.log('Wrong')
-        }
+            this.incrementPercent()
+        } 
+    }
+
+    componentDidMount() {
+        this.calculateCodeLength()
+    }
+
+    calculateCodeLength = () => {
+        const codeLength = this.state.code.length
+        const percentageIncrement = 100 / codeLength
+        this.setState({ codeLength, percentageIncrement})
     }
 
     handleTextChange = (newValue, event) => {
         this.compareCode(newValue)
-        console.log(event)
+        //console.log(event)
         if (event.action === "insert") {
             this.setState({
                 row: event.end.row + 2,
                 newValue
             })
-        } else {
+        } 
+        if (event.action === 'remove') {
+            this.decreasePercent()
             const position = this.state.textPosition
             const newPosition = position - 1
             this.setState({
@@ -47,11 +59,18 @@ class CodeRacerContainer extends React.Component {
  
     }
 
-    // TODO: call this function everytime a user types correctly to show their progress in the bar
-    incrementPercent = () =>
+    // TODO: REFACTOR increment and decrease to one function
+    incrementPercent = () => {
         this.setState({
-            percent: this.state.percent >= 100 ? 0 : this.state.percent + 1,
+            progressPercent: this.state.progressPercent >= 100 ? 0 : this.state.progressPercent + this.state.percentageIncrement,
         })
+    }
+
+    decreasePercent = () => {
+        this.setState({
+            progressPercent: this.state.progressPercent >= 100 ? 0 : this.state.progressPercent - this.state.percentageIncrement,
+        })    
+    }
 
     
     render() {
