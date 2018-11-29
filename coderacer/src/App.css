@@ -30,3 +30,12 @@
     transform: rotate(360deg);
   }
 }
+
+.snippet_wrapper {
+    padding: 1em;
+    background-color: #272822;
+    margin: 1em auto;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+}
