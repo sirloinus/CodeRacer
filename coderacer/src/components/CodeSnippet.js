@@ -21,7 +21,7 @@ const CodeSnippet = ({ code }) => {
                 theme="monokai"
                 name="UNIQUE_ID_OF_DIV"
                 editorProps={{ $blockScrolling: true }}
-                readOnly='true'
+                readOnly={true}
                 fontSize='12px'
             />
         </div>
