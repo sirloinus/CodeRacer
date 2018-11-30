@@ -22,30 +22,22 @@ class CodeRacerContainer extends React.Component {
                 // code snippet of that index selected as the value of "code" state for game
                 code: snippets.codeSnippets[Math.floor(Math.random() * (snippets.codeSnippets.length))].code
             })
-            )
-        // .then(() => this.calculateCodeLength())
-    }
-
-    compareCode = (newValue) => {
-
+        )
     }
 
     componentDidMount() {
         this.getSnippets()
     }
 
-    dummyFunc = (event, newValue, actionBoolean) => {
+    compareCode = (event, newValue) => {
         const code = this.state.code;
-        const positionNum = (actionBoolean) ? 1 : -1;
-        const rowNum = (actionBoolean) ? 2 : -2;
+        const newPosition = this.state.textPosition + 1
 
         if (code.replace(/ /g, '')[this.state.textPosition] !== newValue.replace(/ /g, '')[this.state.textPosition]) {
-            this.setState({ row: event.end.row + rowNum, newValue, flag: false })
+            this.setState({ row: event.end.row + 2, newValue, flag: false })
         } else {
-            const newPosition = this.state.textPosition + positionNum;
-            
             this.setState({
-                row: event.end.row + rowNum,
+                row: event.end.row + 2,
                 newValue,
                 textPosition: newPosition,
                 flag: true
@@ -54,31 +46,27 @@ class CodeRacerContainer extends React.Component {
     }
 
     handleTextChange = (newValue, event) => {
+        console.log('newValue.slice(-1)', newValue.slice(-1))
         if (event.action === "insert") {
-            this.dummyFunc(event, newValue, true)
+            this.compareCode(event, newValue)
+        } else if (event.action === 'remove' && newValue.slice(-1) !== ' ') {
+            const currentPosition = this.state.progressWidth
+            
+            if (currentPosition >= this.changeProgressBarHandler(newValue)) {
+                
+                this.setState({ newValue, progressWidth: this.changeProgressBarHandler(newValue), textPosition: this.state.textPosition - 1 })
+            } else {
+                this.setState({ newValue})
+            }           
         }
-        // } else if (event.action === 'remove') {
-        //     this.setState({textPosition: this.state.textPosition - 1},
-        //     () => {
-        //         this.dummyFunc(event, newValue, false)
-        //     })
-           
-        // }
-        
-        (this.state.flag) && this.changeProgressBarHandler(newValue)
-
+        (this.state.flag) && this.setState({ progressWidth: this.changeProgressBarHandler(newValue)})
     }
 
     changeProgressBarHandler = (newValue) => {
         const codeLength = this.state.code.length
         const inputLength = newValue.length
-        const width = Math.ceil(inputLength / codeLength * 100)
-        this.setState({ progressWidth: width })
-
+        return  Math.ceil(inputLength / codeLength * 100)
     }
-
-
-
 
     render() {
         const { code, row, newValue, progressWidth } = this.state;
