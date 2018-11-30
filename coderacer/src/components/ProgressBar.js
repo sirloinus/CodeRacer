@@ -4,10 +4,10 @@ import { Progress } from 'semantic-ui-react'
 class ProgressBar extends React.Component {
 
     render() {
-        const { progressPercent } = this.props
+        const { progressWidth } = this.props
         return (
             <div className="progress_bar">
-                <Progress percent={progressPercent} indicating />
+                <Progress percent={progressWidth} indicating />
             </div>
         )
     }

@@ -8,7 +8,8 @@ import 'brace/theme/monokai';
 const CodeSnippet = ({ code }) => {
 
     const height = code => {
-        return (code.match(/\n/g).length + 1) * 16
+        const codeLines = (code.match(/\n/g)) ? code.match(/\n/g).length : 0;
+        return (codeLines + 1) * 16
     }
 
     return (

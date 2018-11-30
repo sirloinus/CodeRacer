@@ -2,43 +2,43 @@
     "codeSnippets": [
         {
             "id": 1,
-            "code": "const hello = () => {\n  console.log('Hello World')\n}"
+            "code": "const hello = () => {\n console.log('Hello World')\n}"
         },
         {
             "id": 2,
-            "code": "const person = {\n  name: 'Barney',\n  age: 21,\n  occupation: 'student'\n}"
+            "code": "const person = {\n name: 'Barney',\n age: 21,\n occupation: 'student'\n}"
         },
         {
             "id": 3,
-            "code": "getData = () => {\n  fetch('data.json')\n  .then(resp => resp.json())\n  .then(data => console.log(data))\n}"
+            "code": "getData = () => {\n fetch('data.json')\n .then(resp => resp.json())\n .then(data => console.log(data))\n}"
         }, 
         {
             "id": 3,
-            "code": "const array = [1, 2, 3, 4]\nconst four = array.length"
+            "code": "const array = [1, 2, 3, 4]\n const four = array.length"
         }, 
         {
             "id": 4,
-            "code": "function biggestNum(num1, num2){\n  return num1 > num2 ? num1 : num2\n}"
+            "code": "function biggestNum(num1, num2){\n return num1 > num2 ? num1 : num2\n}"
         }, 
         {
             "id": 5,
-            "code": "const array = ['Dog', 'Cat', 'Sheep', 'Horse']\nconst dog = array.filter(animal => animal === 'Dog')"
+            "code": "const array = ['Dog', 'Cat', 'Sheep', 'Horse']\n const dog = array.filter(animal => animal === 'Dog')"
         }, 
         {
             "id": 6,
-            "code": "const nums = [14, 5, 9, 3, 11]\nconst sortedNums = nums.sort((a, b) => a - b)"
+            "code": "const nums = [14, 5, 9, 3, 11]\n const sortedNums = nums.sort((a, b) => a - b)"
         }, 
         {
             "id": 7,
-            "code": "const addTwo = (nums) => {\n  return nums.map(num => num + 2)\n}"
+            "code": "const addTwo = (nums) => {\n return nums.map(num => num + 2)\n}"
         }, 
         {
             "id": 8,
-            "code": "function sentenceIncludesString(sentence, string){\n  if(sentence.includes(string)){\n    return true\n  } else {\n    return false\n  }\n}"
+            "code": "function sentenceIncludesString(sentence, string){\n if(sentence.includes(string)){\n return true\n} else {\n return false\n}\n}"
         }, 
         {
             "id": 9,
-            "code": "const addNums = (num1, num2) => {\n  return num1 + num2\n}"
+            "code": "const addNums = (num1, num2) => {\n return num1 + num2\n}"
         }
     ]
 }
