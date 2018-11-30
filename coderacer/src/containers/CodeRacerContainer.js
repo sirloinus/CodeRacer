@@ -15,6 +15,17 @@ class CodeRacerContainer extends React.Component {
         codeLength: 0
     }
 
+    getSnippets = () => {
+        fetch('data.json')
+            .then(resp => resp.json())
+            .then(snippets => this.setState({
+                // random num picked (no longer than length of array), 
+                // code snippet of that index selected as the value of "code" state for game
+                 code: snippets.codeSnippets[Math.floor(Math.random() * (snippets.codeSnippets.length))].code 
+                })
+            )
+    }
+
     compareCode = (newValue) => {
         const position = this.state.textPosition
         if (newValue === this.state.code) {
@@ -29,6 +40,7 @@ class CodeRacerContainer extends React.Component {
     }
 
     componentDidMount() {
+        this.getSnippets()
         this.calculateCodeLength()
     }
 
@@ -40,7 +52,7 @@ class CodeRacerContainer extends React.Component {
 
     handleTextChange = (newValue, event) => {
         this.compareCode(newValue)
-        //console.log(event)
+        console.log(event)
         if (event.action === "insert") {
             this.setState({
                 row: event.end.row + 2,
@@ -88,3 +100,17 @@ class CodeRacerContainer extends React.Component {
 }
 
 export default CodeRacerContainer;
+
+
+
+
+
+
+
+// function sentenceIncString(sentence, string){
+//     if(sentence.includes(string)){
+//         return true
+//     } else {
+//         return false
+//     }
+// }
