@@ -4,6 +4,7 @@ import TextEditor from '../../components/Game/TextEditor'
 import ProgressBar from '../../components/Game/ProgressBar'
 import PostGameContainer from '../PostGame/PostGameContainer';
 import Timer from '../../components/Game/Timer';
+import Start from '../../components/Game/StartButton';
 
 class CodeRacerContainer extends React.Component {
 
@@ -101,6 +102,7 @@ class CodeRacerContainer extends React.Component {
                     <CodeSnippet code={code} />
                     <TextEditor row={row} newValue={newValue} handleTextChange={handleTextChange} readOnly={readOnly}/>
                     <ProgressBar progressWidth={progressWidth} />
+                    <Start />
                     <Timer/>
                 </div>
                 :

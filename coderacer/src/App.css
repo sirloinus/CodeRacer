@@ -82,12 +82,12 @@
 }
 
 .circular-chart.blue .circle {
-  stroke: #3c9ee5;
+  stroke: #0dbbbb;
 }
 
 .percentage {
-  fill: #666;
-  font-family: sans-serif;
+  fill: rgb(102, 102, 102);
+  font-family: monospace;
   font-size: 0.5em;
   text-anchor: middle;
 }
