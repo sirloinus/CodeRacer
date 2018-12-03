@@ -3,6 +3,7 @@ import CodeSnippet from '../../components/Game/CodeSnippet'
 import TextEditor from '../../components/Game/TextEditor'
 import ProgressBar from '../../components/Game/ProgressBar'
 import PostGameContainer from '../PostGame/PostGameContainer';
+import Timer from '../../components/Game/Timer';
 
 class CodeRacerContainer extends React.Component {
 
@@ -13,8 +14,12 @@ class CodeRacerContainer extends React.Component {
         textPosition: 0,
         progressWidth: 0,
         flag: true,
-        readOnly: false
+        readOnly: false,
+        accuracy: 0,
+        errors: 0,
     }
+
+
 
     getSnippets = () => {
         fetch('data.json')
@@ -36,7 +41,12 @@ class CodeRacerContainer extends React.Component {
         const newPosition = this.state.textPosition + 1
 
         if (code.replace(/ /g, '')[this.state.textPosition] !== newValue.replace(/ /g, '')[this.state.textPosition]) {
-            this.setState({ row: event.end.row + 2, newValue, flag: false })
+            const newErrors = this.state.errors + 1
+            this.setState({ 
+                row: event.end.row + 2, newValue, 
+                flag: false, 
+                errors: newErrors 
+            })
         } else {
             this.setState({
                 row: event.end.row + 2,
@@ -46,9 +56,16 @@ class CodeRacerContainer extends React.Component {
             })
             if (code === newValue) {
                 console.log('YOU WIN')
-                this.setState({ readOnly: true})
+                this.setState({ 
+                    readOnly: true, 
+                    accuracy: this.calculateAccuracy()
+                })
             }
         }
+    }
+
+    calculateAccuracy = () => {
+        return Math.floor(this.state.code.length / (this.state.code.length + this.state.errors) * 100)
     }
 
     handleTextChange = (newValue, event) => {
@@ -75,7 +92,7 @@ class CodeRacerContainer extends React.Component {
     }
 
     render() {
-        const { code, row, newValue, progressWidth, readOnly } = this.state
+        const { code, row, newValue, progressWidth, readOnly, accuracy } = this.state
         const { handleTextChange } = this
         return (
             <>
@@ -84,9 +101,10 @@ class CodeRacerContainer extends React.Component {
                     <CodeSnippet code={code} />
                     <TextEditor row={row} newValue={newValue} handleTextChange={handleTextChange} readOnly={readOnly}/>
                     <ProgressBar progressWidth={progressWidth} />
+                    <Timer/>
                 </div>
                 :
-                <PostGameContainer code={code} />
+                <PostGameContainer code={code} accuracy={accuracy}/>
             }
             </>
         )

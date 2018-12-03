@@ -6,8 +6,7 @@ const ScoreComparison = () => {
     return (
         <div className='comparison_wrapper'>
         <Container>
-            <Header as='h2'>Comparison</Header>
-            <Segment>jbsjdfhbskfb</Segment>
+            <Segment id='comparison'>COMPARISON kvndlfnflenflkds</Segment>
         </Container>
         </div>
     )
