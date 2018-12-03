@@ -1,7 +1,9 @@
 import React from 'react'
-import CodeSnippet from '../components/CodeSnippet';
-import TextEditor from '../components/TextEditor';
-import ProgressBar from '../components/ProgressBar';
+import CodeSnippet from '../../components/Game/CodeSnippet'
+import TextEditor from '../../components/Game/TextEditor'
+import ProgressBar from '../../components/Game/ProgressBar'
+import PostGameContainer from '../PostGame/PostGameContainer';
+import Timer from '../../components/Game/Timer';
 
 class CodeRacerContainer extends React.Component {
 
@@ -11,8 +13,13 @@ class CodeRacerContainer extends React.Component {
         newValue: '',
         textPosition: 0,
         progressWidth: 0,
-        flag: true
+        flag: true,
+        readOnly: false,
+        accuracy: 0,
+        errors: 0,
     }
+
+
 
     getSnippets = () => {
         fetch('data.json')
@@ -30,11 +37,16 @@ class CodeRacerContainer extends React.Component {
     }
 
     compareCode = (event, newValue) => {
-        const code = this.state.code;
+        const code = this.state.code
         const newPosition = this.state.textPosition + 1
 
         if (code.replace(/ /g, '')[this.state.textPosition] !== newValue.replace(/ /g, '')[this.state.textPosition]) {
-            this.setState({ row: event.end.row + 2, newValue, flag: false })
+            const newErrors = this.state.errors + 1
+            this.setState({ 
+                row: event.end.row + 2, newValue, 
+                flag: false, 
+                errors: newErrors 
+            })
         } else {
             this.setState({
                 row: event.end.row + 2,
@@ -42,11 +54,22 @@ class CodeRacerContainer extends React.Component {
                 textPosition: newPosition,
                 flag: true
             })
+            if (code === newValue) {
+                console.log('YOU WIN')
+                this.setState({ 
+                    readOnly: true, 
+                    accuracy: this.calculateAccuracy()
+                })
+            }
         }
     }
 
+    calculateAccuracy = () => {
+        return Math.floor(this.state.code.length / (this.state.code.length + this.state.errors) * 100)
+    }
+
     handleTextChange = (newValue, event) => {
-        console.log('newValue.slice(-1)', newValue.slice(-1))
+        // console.log('newValue.slice(-1)', newValue.slice(-1))
         if (event.action === "insert") {
             this.compareCode(event, newValue)
         } else if (event.action === 'remove' && newValue.slice(-1) !== ' ') {
@@ -69,14 +92,21 @@ class CodeRacerContainer extends React.Component {
     }
 
     render() {
-        const { code, row, newValue, progressWidth } = this.state;
+        const { code, row, newValue, progressWidth, readOnly, accuracy } = this.state
         const { handleTextChange } = this
         return (
-            <div>
-                <CodeSnippet code={code} />
-                <TextEditor row={row} newValue={newValue} handleTextChange={handleTextChange} />
-                <ProgressBar progressWidth={progressWidth} />
-            </div>
+            <>
+            {!readOnly ? 
+                <div>
+                    <CodeSnippet code={code} />
+                    <TextEditor row={row} newValue={newValue} handleTextChange={handleTextChange} readOnly={readOnly}/>
+                    <ProgressBar progressWidth={progressWidth} />
+                    <Timer/>
+                </div>
+                :
+                <PostGameContainer code={code} accuracy={accuracy}/>
+            }
+            </>
         )
     }
 
