@@ -1,8 +1,6 @@
 import React from 'react'
 import SignInForm from './SignUpSignIn/SignInForm'
 import SignUpForm from './SignUpSignIn/SignUpForm'
-// import API from './API'
-// import { Button } from 'semantic-ui-react'
 
 
 class LoginScreen extends React.Component {

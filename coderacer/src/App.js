@@ -11,20 +11,23 @@ import { Button } from 'semantic-ui-react'
 class App extends React.Component {
 
   state = {
-    username: ''
+    username: '',
+    signed_in: false
   }
 
   signin = user => {
     localStorage.setItem('token', user.token)
     this.setState({
-      username: user.username
+      username: user.username,
+      signed_in: true
     })
   }
 
   signout = () => {
     localStorage.removeItem('token')
     this.setState({
-      username: ''
+      username: '',
+      signed_in: false
     })
   }
 
@@ -32,24 +35,27 @@ class App extends React.Component {
     this.signin(user)
   }
 
+
   componentDidMount() {
     API.validate()
       .then(data => {
         if (data.error) {
           this.signout()
+          this.setState({ signed_in: false })
         } else {
           this.signin(data)
+          this.setState({ signed_in: true })
         }
       })
   }
   
   render(){
     const { signin, signout, signup } = this
-    const { username } = this.state
+    const { username, signed_in } = this.state
     return(
       <div>
         {
-          username === ''
+          !signed_in
           ? <LoginScreen signin={signin} signup={signup} signout={signout} username={username} />
           : <Button onClick={signout}>SIGN OUT</Button>
         }
