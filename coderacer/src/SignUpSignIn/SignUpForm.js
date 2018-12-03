@@ -36,6 +36,7 @@ class SignUpForm extends React.Component {
   render () {
     // const { username, password } = this.state
     const { handlePWChange, handleUsernameChange, handleSubmit } = this
+    const { handleLoginClick } = this.props
 
     return (
       <div>
@@ -54,8 +55,11 @@ class SignUpForm extends React.Component {
           type='password'
         />
         <br />
-        <Button onClick={handleSubmit} variant='contained' color='primary'>
+        <Button onClick={handleSubmit}>
           SUBMIT
+        </Button>
+        <Button onClick={handleLoginClick}>
+            LOGIN
         </Button>
       </div>
     )

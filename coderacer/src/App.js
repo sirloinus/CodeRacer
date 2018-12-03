@@ -1,42 +1,41 @@
-import React from 'react';
-import { render } from 'react-dom';
-
-import './App.css';
-import CodeRacerContainer from './containers/Game/CodeRacerContainer';
-import NavBar from './components/NavBar';
+import React from 'react'
+import './App.css'
 import LoginScreen from './LoginScreen'
 import API from './API'
-import { Button } from 'semantic-ui-react'
+import LandingPage from './LandingPage'
 
 class App extends React.Component {
 
   state = {
     username: '',
-    signed_in: false
+    signed_in: false,
+    users: [],
+    user: null
   }
 
   signin = user => {
     localStorage.setItem('token', user.token)
-    this.setState({
-      username: user.username,
-      signed_in: true
-    })
+    this.setState({ username: user.username })
+    this.setState({ signed_in: true })
   }
 
   signout = () => {
     localStorage.removeItem('token')
-    this.setState({
-      username: '',
-      signed_in: false
-    })
+    this.setState({ username: '' })
+    this.setState({  signed_in: false })
   }
 
   signup = user => {
     this.signin(user)
   }
 
+  componentDidMount(){
+    this.getData()
+    this.fetchUsers()
+    this.getUser()
+  }
 
-  componentDidMount() {
+  getData() {
     API.validate()
       .then(data => {
         if (data.error) {
@@ -47,6 +46,19 @@ class App extends React.Component {
           this.setState({ signed_in: true })
         }
       })
+      .then(console.log("fetch complete"))
+  }
+
+  fetchUsers = () => {
+    fetch('http://localhost:3000/api/v1/users')
+      .then(resp => resp.json())
+      .then(users => this.setState({ users }))
+  }
+
+  getUser = () => {
+    const user = this.state.users.filter(user => user.username === this.state.username)
+    this.state.username !== '' && this.setState({ user })
+    console.log(user)
   }
   
   render(){
@@ -55,12 +67,11 @@ class App extends React.Component {
     return(
       <div>
         {
-          !signed_in
-          ? <LoginScreen signin={signin} signup={signup} signout={signout} username={username} />
-          : <Button onClick={signout}>SIGN OUT</Button>
+          signed_in
+          ? <LandingPage signout={signout} />
+          : <LoginScreen signin={signin} signup={signup} signout={signout} username={username} />
         }
-        {/* <NavBar/>
-        <CodeRacerContainer/> */}
+        {/* <CodeRacerContainer/> */}
       </div>
     )
   }

@@ -25,12 +25,6 @@ class API {
     return this.get('http://localhost:3000/api/v1/validate')
   }
 
-  static fetchUsers  () {
-    fetch('http://localhost:3000/api/v1/users')
-      .then(resp => resp.json())
-      .then(users => console.log(users))
-  }
-
   static get (url) {
     return fetch(url, {
       headers: {

@@ -1,17 +1,27 @@
 import React from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Button } from 'semantic-ui-react'
 
-const NavBar = () => {
+class NavBar extends React.Component {
 
-    return (
+    render(){
+        const { signout, handleBackToMainClick} = this.props
+        return (
 
-        <Menu>
-            <Menu.Item>
-                CodeRacer
-            </Menu.Item>
-        </Menu>
+            <Menu>
+                <Menu.Item onClick={handleBackToMainClick}>
+                    CodeRacer
+                </Menu.Item>
 
-    )
+                <Menu.Item position='right'>
+                    User Profile
+                </Menu.Item>
+                <Menu.Item onClick={signout}>
+                    Sign Out
+                </Menu.Item>
+            </Menu>
+
+        )
+    }
 
 }
 
