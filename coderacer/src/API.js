@@ -15,7 +15,8 @@ class API {
       body: JSON.stringify({
         user: {
           username: user.username,
-          password: user.password
+          password: user.password,
+          pic_url: "placeholder (serializer)"
         }
       })
     }).then(resp => resp.json())

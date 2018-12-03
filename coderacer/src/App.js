@@ -43,6 +43,7 @@ class App extends React.Component {
           this.setState({ signed_in: false })
         } else {
           this.signin(data)
+          console.log(data)
           this.setState({ signed_in: true })
         }
       })
