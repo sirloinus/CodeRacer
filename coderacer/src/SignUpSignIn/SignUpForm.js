@@ -1,5 +1,4 @@
 import React from 'react'
-
 import API from '../API'
 import { Button, Form } from 'semantic-ui-react'
 
@@ -12,7 +11,6 @@ class SignUpForm extends React.Component {
   handleSubmit = () => {
     const { signup } = this.props
     const user = this.state
-    console.log(user)
     API.signup(user)
       .then(data => {
         if (data.error) {
