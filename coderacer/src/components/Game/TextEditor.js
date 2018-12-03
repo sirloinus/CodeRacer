@@ -7,7 +7,7 @@ import 'brace/theme/monokai';
 class TextEditor extends React.Component {
 
     render() {
-        const { row, newValue, handleTextChange } = this.props
+        const { row, newValue, handleTextChange, readOnly } = this.props
         const height = row * 16
         return (
             <div className="snippet_wrapper">
@@ -21,6 +21,7 @@ class TextEditor extends React.Component {
                     name="UNIQUE_ID_OF_DIV"
                     editorProps={{ $blockScrolling: true }}
                     tabSize={2}
+                    readOnly={readOnly ? true : false}
                 />
             </div>
         )

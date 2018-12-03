@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import './App.css';
-import CodeRacerContainer from './containers/CodeRacerContainer';
+import CodeRacerContainer from './containers/Game/CodeRacerContainer';
 import NavBar from './components/NavBar';
 
 class App extends React.Component {

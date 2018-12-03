@@ -3,6 +3,7 @@ import brace from 'brace';
 import AceEditor from 'react-ace';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
+// import { Transition } from 'semantic-ui-react'
 
 
 const CodeSnippet = ({ code }) => {
