@@ -116,7 +116,8 @@ class CodeRacerContainer extends React.Component {
     }
 
     render() {
-        const { code, row, newValue, progressWidth, readOnly, accuracy, charsPerMin, go, finish, time } = this.state
+        const { user_id } = this.props
+        const { codeObj, code, row, newValue, progressWidth, readOnly, accuracy, charsPerMin, go, finish, time } = this.state
         const { handleTextChange, handleGoClick, setTime, calculateCharsPerMin } = this
         return (
             <>
@@ -128,7 +129,7 @@ class CodeRacerContainer extends React.Component {
                         {!go ? <Start handleGoClick={handleGoClick} /> : <Timer setTime={setTime} calculateCharsPerMin={calculateCharsPerMin}/> }
                 </div>
                 :
-                <PostGameContainer code={code} accuracy={accuracy} charsPerMin={charsPerMin} time={time}/>
+                <PostGameContainer user_id={user_id} codeObj={codeObj} code={code} accuracy={accuracy} charsPerMin={charsPerMin} time={time}/>
             }
             </>
         )
