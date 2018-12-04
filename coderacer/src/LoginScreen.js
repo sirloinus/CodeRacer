@@ -4,6 +4,7 @@ import SignUpForm from './SignUpSignIn/SignUpForm'
 import LoginNav from './LoginNav'
 import gif1 from './assets/coderacer_gif_3.gif'
 import logo from './assets/coderacer_logo_new.png'
+import './LoginScreen.css'
 
 
 
@@ -11,41 +12,61 @@ class LoginScreen extends React.Component {
 
     state = {
         registration: false,
-        login: false
+        login: false,
+        focus: false
     }
 
     handleRegisterClick = () => this.setState({ login: false, registration: !this.state.registration })
     handleLoginClick = () => this.setState({ login: !this.state.login, registration: false })
 
+    handleMouseOver = () => {
+        this.setState({ focus: true })
+    }
+
+    handleMouseOff = () => {
+        this.setState({ focus: false })
+    }
 
     render() {
-        const { handleRegisterClick, handleLoginClick } = this
+        const { handleRegisterClick, handleLoginClick, handleMouseOff, handleMouseOver } = this
         const { signin, signup } = this.props
-        const { registration, login } = this.state
+        const { registration, login, focus } = this.state
         return(
         <div>
-            <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} />
-            {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />}
-            {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}   
+            <div>
+                <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} />
+                {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />}
+                {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}   
 
-            
-            <img src={logo} alt={"bleh"} style={{
-                transform: "scale(0.6)",
-                display: "block",
-                marginLeft: "auto",
-                marginRight: "auto",
-                width: "50%",
-                paddingTop: "10px"
-            }}/>
+            </div>
 
-            <img src={gif1} alt={"bleh"} style={{    
-                transform: "scale(1)",
-                display: "block",
-                marginLeft: "auto",
-                marginRight: "auto",
-                width: "50%"
-            }} />
-            
+            <div>
+                <img src={logo} alt={"bleh"} style={{
+                    transform: "scale(0.6)",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    width: "50%",
+                    paddingTop: "10px"
+                }}/>
+
+                <div style={{position: "absolute", fontSize: "200px"}}>PLAY</div>
+
+                <img className={focus ? 'start-button' : null} 
+                    onMouseOver={handleMouseOver} 
+                    onMouseOut={handleMouseOff} 
+                    src={gif1} 
+                    alt={"bleh"} 
+                    style={{    
+                    transform: "scale(1)",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    width: "50%"
+                }} />
+
+            </div>
+
          </div>
     )
   }
