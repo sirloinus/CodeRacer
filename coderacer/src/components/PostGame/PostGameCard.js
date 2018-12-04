@@ -1,8 +1,11 @@
 import React from 'react'
 
 import { Container, Segment } from 'semantic-ui-react'
+import ChartRing from './ChartRing';
 
-const PostGameCard = ({ accuracy }) => {
+const PostGameCard = ({ accuracy, time, charsPerMin }) => {
+
+    const seconds = time.toFixed(0)
 
     return (
         <div className='game_card_wrapper'>
@@ -10,27 +13,16 @@ const PostGameCard = ({ accuracy }) => {
             <Segment.Group horizontal>
                 <Segment textAlign='center'>
                     Accuracy
-                    {/* <div class="flex-wrapper"> */}
-                        <div class="single-chart">
-                            <svg viewBox="0 0 36 36" class="circular-chart orange">
-                            <path class="circle-bg"
-                                d="M18 2.0845
-                                a 15.9155 15.9155 0 0 1 0 31.831
-                                a 15.9155 15.9155 0 0 1 0 -31.831"
-                            />
-                            <path class="circle"
-                                stroke-dasharray={`${accuracy}, 100`}
-                                d="M18 2.0845
-                                a 15.9155 15.9155 0 0 1 0 31.831
-                                a 15.9155 15.9155 0 0 1 0 -31.831"
-                            />
-                            <text x="18" y="20.35" class="percentage">{accuracy}%</text>
-                            </svg>
-                        {/* </div> */}
-                    </div>
+                    <ChartRing value1={accuracy} value2={accuracy} colour='green' sign='%'/>
                 </Segment>
-                <Segment textAlign='center'>Time</Segment>
-                <Segment textAlign='center'>Characters/min</Segment>
+                <Segment textAlign='center'>
+                    Seconds
+                    <ChartRing value1={seconds} value2={seconds} colour='orange'/>
+                </Segment>
+                <Segment textAlign='center'>
+                    Chars/min
+                    <ChartRing value1={charsPerMin / 10} value2={charsPerMin} colour='blue'/>           
+                </Segment>
             </Segment.Group>
         </Container>
         </div>

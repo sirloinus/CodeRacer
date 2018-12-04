@@ -15,9 +15,13 @@ class CodeRacerContainer extends React.Component {
         textPosition: 0,
         progressWidth: 0,
         flag: true,
-        readOnly: false,
+        readOnly: true,
         accuracy: 0,
         errors: 0,
+        go: false,
+        time: 0, 
+        finish: false,
+        charsPerMin: 0
     }
 
 
@@ -59,7 +63,8 @@ class CodeRacerContainer extends React.Component {
                 console.log('YOU WIN')
                 this.setState({ 
                     readOnly: true, 
-                    accuracy: this.calculateAccuracy()
+                    accuracy: this.calculateAccuracy(),
+                    finish: true
                 })
             }
         }
@@ -67,6 +72,11 @@ class CodeRacerContainer extends React.Component {
 
     calculateAccuracy = () => {
         return Math.floor(this.state.code.length / (this.state.code.length + this.state.errors) * 100)
+    }
+
+    calculateCharsPerMin = time => {
+        const result = (this.state.code.length / time) * 60
+        this.setState({ charsPerMin: result.toFixed(0) })
     }
 
     handleTextChange = (newValue, event) => {
@@ -86,6 +96,16 @@ class CodeRacerContainer extends React.Component {
         (this.state.flag) && this.setState({ progressWidth: this.changeProgressBarHandler(newValue)})
     }
 
+    handleGoClick = () => {
+        this.setState({ 
+            go: true,
+            readOnly: false })
+    }
+
+    setTime = elapsed => {
+        this.setState({ time: elapsed })
+    }
+
     changeProgressBarHandler = (newValue) => {
         const codeLength = this.state.code.length
         const inputLength = newValue.length
@@ -93,20 +113,19 @@ class CodeRacerContainer extends React.Component {
     }
 
     render() {
-        const { code, row, newValue, progressWidth, readOnly, accuracy } = this.state
-        const { handleTextChange } = this
+        const { code, row, newValue, progressWidth, readOnly, accuracy, charsPerMin, go, finish, time } = this.state
+        const { handleTextChange, handleGoClick, setTime, calculateCharsPerMin } = this
         return (
             <>
-            {!readOnly ? 
+            {!finish ? 
                 <div>
                     <CodeSnippet code={code} />
                     <TextEditor row={row} newValue={newValue} handleTextChange={handleTextChange} readOnly={readOnly}/>
                     <ProgressBar progressWidth={progressWidth} />
-                    <Start />
-                    <Timer/>
+                        {!go ? <Start handleGoClick={handleGoClick} /> : <Timer setTime={setTime} calculateCharsPerMin={calculateCharsPerMin}/> }
                 </div>
                 :
-                <PostGameContainer code={code} accuracy={accuracy}/>
+                <PostGameContainer code={code} accuracy={accuracy} charsPerMin={charsPerMin} time={time}/>
             }
             </>
         )
