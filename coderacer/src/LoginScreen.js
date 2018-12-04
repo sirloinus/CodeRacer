@@ -41,7 +41,17 @@ class LoginScreen extends React.Component {
             </div>
 
             <div>
-                <img src={logo} alt={"bleh"} style={{
+
+                {/* <div style={{
+                    position: "absolute",
+                    fontSize: "200px"
+                }}>
+                PLAY
+                </div> */}
+
+                <img src={logo}
+                    alt={"bleh"}
+                    style={{
                     transform: "scale(0.6)",
                     display: "block",
                     marginLeft: "auto",
@@ -49,8 +59,6 @@ class LoginScreen extends React.Component {
                     width: "50%",
                     paddingTop: "10px"
                 }}/>
-
-                <div style={{position: "absolute", fontSize: "200px"}}>PLAY</div>
 
                 <img className={focus ? 'start-button' : null} 
                     onMouseOver={handleMouseOver} 

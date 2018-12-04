@@ -21,7 +21,7 @@ const PostGameCard = ({ accuracy, time, charsPerMin }) => {
                 </Segment>
                 <Segment textAlign='center'>
                     Chars/min
-                    <ChartRing value1={charsPerMin / 10} value2={charsPerMin} colour='blue'/>           
+                    <ChartRing value1={charsPerMin / 5} value2={charsPerMin} colour='blue'/>           
                 </Segment>
             </Segment.Group>
         </Container>
