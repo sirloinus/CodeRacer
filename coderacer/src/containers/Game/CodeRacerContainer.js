@@ -23,6 +23,9 @@ class CodeRacerContainer extends React.Component {
         time: 0, 
         finish: false,
         charsPerMin: 0,
+        posted: false,
+        perc_better_time_than_snippet: 0,
+        perc_better_chars_per_min: 0
     }
 
     getSnippets = () => {
@@ -41,6 +44,7 @@ class CodeRacerContainer extends React.Component {
     componentDidMount() {
         this.getSnippets()
     }
+
 
     compareCode = (event, newValue) => {
         const code = this.state.code
@@ -107,8 +111,55 @@ class CodeRacerContainer extends React.Component {
         this.setState({ time: elapsed })
     }
 
-    postGame = () => {
 
+    fetchGames = () => {
+        return fetch("http://localhost:3000/api/v1/games")
+            .then(resp => resp.json())
+            .then(games => {
+                console.log(games)
+                this.findPercBetterTimeThanSnippet(games)
+                this.findPercBetterCharsPerMin(games)
+            })
+    }
+
+
+
+    postGame = () => {
+        if(this.state.time !== 0 && this.state.accuracy !== 0){
+            if(this.state.posted === false){
+                console.log("posted")
+                this.postGameToServer()
+                this.setState({ posted: true })
+                this.fetchGames()
+            }
+        }
+    }
+
+
+    findPercBetterTimeThanSnippet = (games) => {
+        const snippet_id = this.state.codeObj.id
+        const gamesWithThisSnippet = games.filter(game => game.snippet_id === snippet_id)
+        if (gamesWithThisSnippet.length > 0){
+            const betterThanGamesThisWithSnippet = gamesWithThisSnippet.filter(game => game.time_taken > this.state.time)
+            const betterThanThisPercPeopleSnippetTime = ((betterThanGamesThisWithSnippet.length) * 100 / (gamesWithThisSnippet.length) * 100) / 100
+            this.setState({ perc_better_time_than_snippet: betterThanThisPercPeopleSnippetTime })
+            console.log(this.state.perc_better_time_than_snippet)
+        } else {
+            console.log("no other games with this snippet")
+        }
+    }
+
+
+    findPercBetterCharsPerMin = (games) => {
+        const characters_per_min = this.state.charsPerMin
+        const fasterThanTheseGames = games.filter(game => game.characters_per_min < characters_per_min)
+        const perc_better_chars_per_min = ((fasterThanTheseGames.length) * 100 / (games.length) * 100) / 100
+        this.setState({ perc_better_chars_per_min })
+        console.log(this.state.perc_better_chars_per_min)
+    }
+
+
+    postGameToServer = () => {
         const { codeObj, time, accuracy, charsPerMin } = this.state
         const { user_id } = this.props
 
@@ -136,7 +187,7 @@ class CodeRacerContainer extends React.Component {
     }
 
     render() {
-        const { codeObj, code, row, newValue, progressWidth, readOnly, accuracy, charsPerMin, go, finish, time } = this.state
+        const { codeObj, code, row, newValue, progressWidth, readOnly, accuracy, charsPerMin, go, finish, time, perc_better_time_than_snippet, perc_better_chars_per_min } = this.state
         const { handleTextChange, handleGoClick, setTime, calculateCharsPerMin, postGame } = this
         return (
             <>
@@ -148,7 +199,16 @@ class CodeRacerContainer extends React.Component {
                         {!go ? <Start handleGoClick={handleGoClick} /> : <Timer setTime={setTime} calculateCharsPerMin={calculateCharsPerMin}/> }
                 </div>
                 :
-                <PostGameContainer codeObj={codeObj} code={code} accuracy={accuracy} charsPerMin={charsPerMin} time={time} postGame={postGame}/>
+                <PostGameContainer 
+                    codeObj={codeObj} 
+                    code={code} 
+                    accuracy={accuracy} 
+                    charsPerMin={charsPerMin} 
+                    time={time} 
+                    postGame={postGame}
+                    perc_better_time_than_snippet={perc_better_time_than_snippet}
+                    perc_better_chars_per_min={perc_better_chars_per_min}
+                    />
             }
             </>
         )
