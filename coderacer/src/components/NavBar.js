@@ -12,7 +12,7 @@ class NavBar extends React.Component {
                     CodeRacer
                 </Menu.Item>
                 <Menu.Item position='right'>
-                    User Profile
+                    Leaderboard
                 </Menu.Item>
                 <Menu.Item onClick={handleMyGamesClick}>
                     My Games

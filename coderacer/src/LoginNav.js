@@ -4,10 +4,10 @@ import { Menu } from 'semantic-ui-react'
 class LoginNav extends React.Component {
 
     render(){
-        const { handleRegisterClick, handleLoginClick } = this.props
+        const { handleRegisterClick, handleLoginClick, handleHomeClick } = this.props
         return(
             <Menu>
-                <Menu.Item>
+                <Menu.Item onClick={handleHomeClick}>
                     CodeRacer
                 </Menu.Item>
 

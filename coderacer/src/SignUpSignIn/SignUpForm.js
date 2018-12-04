@@ -39,16 +39,16 @@ class SignUpForm extends React.Component {
     const { handleLoginClick } = this.props
 
     return (
-      <div>
+      <div className='sign_wrapper'>
           Register:
         <Form.Input
-          label='Username'
+          label='Username '
           onChange={handleUsernameChange}
           margin='normal'
         />
         <br />
         <Form.Input
-          label='Password'
+          label='Password '
           onChange={handlePWChange}
           margin='normal'
           name='password'
