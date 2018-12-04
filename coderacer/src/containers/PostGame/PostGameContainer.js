@@ -6,12 +6,13 @@ import ScoreComparison from '../../components/PostGame/ScoreComparison';
 
 class PostGameContainer extends React.Component {
 
+
     render() {
-        const { code, accuracy } = this.props
+        const { code, accuracy, charsPerMin, time } = this.props
         return (
             <div>
                 <CodeSnippet code={code} />
-                <PostGameCard accuracy={accuracy}/>
+                <PostGameCard accuracy={accuracy} charsPerMin={charsPerMin} time={time}/>
                 <ScoreComparison/>
             </div>
         )
