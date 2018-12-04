@@ -23,7 +23,7 @@ class LandingPage extends React.Component {
 
 
     render(){
-        const { signout } = this.props
+        const { signout, user_id } = this.props
         const { playing } = this.state
         const { handlePlayClick, handleBackToMainClick } = this
         return(
@@ -31,7 +31,7 @@ class LandingPage extends React.Component {
                 <NavBar signout={signout} handleBackToMainClick={handleBackToMainClick}/>
                 {
                     playing 
-                    ? <CodeRacerContainer/>
+                    ? <CodeRacerContainer user_id={user_id} />
                     : <Button onClick={handlePlayClick}>Play!</Button>
                 }
             </div>

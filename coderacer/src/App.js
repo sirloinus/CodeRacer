@@ -59,12 +59,12 @@ class App extends React.Component {
   
   render(){
     const { signin, signout, signup } = this
-    const { username, signed_in } = this.state
+    const { username, signed_in, user_id } = this.state
     return(
       <div>
         {
           signed_in
-          ? <LandingPage signout={signout} />
+          ? <LandingPage signout={signout} user_id={user_id} />
           : <LoginScreen signin={signin} signup={signup} signout={signout} username={username} />
         }
         {/* <CodeRacerContainer/> */}
