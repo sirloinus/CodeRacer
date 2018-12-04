@@ -1,30 +1,29 @@
 import React from 'react'
 import SignInForm from './SignUpSignIn/SignInForm'
 import SignUpForm from './SignUpSignIn/SignUpForm'
+import LoginNav from './LoginNav'
 
 
 class LoginScreen extends React.Component {
 
     state = {
-        registration: false
+        registration: false,
+        login: false
     }
 
-    handleRegisterClick = () => this.setState({ registration: true })
-    handleLoginClick = () => this.setState({ registration: false })
+    handleRegisterClick = () => this.setState({ login: false, registration: true })
+    handleLoginClick = () => this.setState({ login: true, registration: false })
 
 
     render() {
         const { handleRegisterClick, handleLoginClick } = this
         const { signin, signup } = this.props
-        const { registration } = this.state
+        const { registration, login } = this.state
         return(
         <div>
-            <br/>  
-            {
-                !registration 
-                ?  <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />
-                :  <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />
-            }
+            <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} />
+            {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />}
+            {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}       
          </div>
     )
   }
