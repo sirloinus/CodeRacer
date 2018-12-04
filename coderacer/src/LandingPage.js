@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from './components/NavBar'
 import CodeRacerContainer from './containers/Game/CodeRacerContainer'
 import { Button } from 'semantic-ui-react'
+import GamesList from './containers/UserProfile/GamesList';
 
 
 
@@ -9,31 +10,37 @@ import { Button } from 'semantic-ui-react'
 class LandingPage extends React.Component {
 
     state = {
-        playing: false
+        playing: false,
+        viewGames: false
     }
 
     handlePlayClick = () => {
-        this.setState({ playing: true })
+        this.setState({ playing: true, viewGames: false})
         console.log("playing!")
     }
 
     handleBackToMainClick = () => {
-        this.setState({ playing: false })
+        this.setState({ playing: false, viewGames: false })
     }
 
+    handleMyGamesClick = () => {
+        this.setState({ viewGames: true, playing: false})
+    }
 
     render(){
         const { signout, user_id } = this.props
-        const { playing } = this.state
-        const { handlePlayClick, handleBackToMainClick } = this
+        const { playing, viewGames } = this.state
+        const { handlePlayClick, handleBackToMainClick, handleMyGamesClick } = this
         return(
             <div>
-                <NavBar signout={signout} handleBackToMainClick={handleBackToMainClick}/>
-                {
-                    playing 
-                    ? <CodeRacerContainer user_id={user_id} />
-                    : <Button onClick={handlePlayClick}>Play!</Button>
+                <NavBar signout={signout} handleBackToMainClick={handleBackToMainClick} handleMyGamesClick={handleMyGamesClick}/>
+                {   viewGames
+                    ? <GamesList user_id={user_id}/>
+                    : (playing
+                        ? <CodeRacerContainer user_id={user_id} />
+                        : <Button onClick={handlePlayClick}>Play!</Button>)
                 }
+
             </div>
         )
     }
