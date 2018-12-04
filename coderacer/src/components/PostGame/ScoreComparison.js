@@ -1,16 +1,20 @@
 import React from 'react'
-import { Container, Header, Segment } from 'semantic-ui-react'
+import { Container, Segment } from 'semantic-ui-react'
 
-const ScoreComparison = () => {
+class ScoreComparison extends React.Component {
 
-    return (
-        <div className='comparison_wrapper'>
-        <Container>
-            <Segment id='comparison'>COMPARISON kvndlfnflenflkds</Segment>
-        </Container>
-        </div>
-    )
+    render(){
+        const { perc_better_time_than_snippet, perc_better_chars_per_min } = this.props
+        return (
+            <div className='comparison_wrapper'>
+            <Container>
+                <Segment>{"You were faster than " + Math.floor(perc_better_time_than_snippet) + "% of players!"}  </Segment>
+                <Segment>{"Your characters per minute is faster than " + Math.floor(perc_better_chars_per_min) + "% of players!"} </Segment>
 
+            </Container>
+            </div>
+        )
+    }
 }
 
 export default ScoreComparison
