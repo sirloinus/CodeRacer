@@ -19,8 +19,7 @@ class Timer extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.interval)
-        this.props.setTime(this.state.elapsed)
-        console.log(this.props.calculateCharsPerMin(this.state.elapsed))
+        this.props.setTime(this.state.elapsed.toFixed(0))
         this.props.calculateCharsPerMin(this.state.elapsed)
     }
 

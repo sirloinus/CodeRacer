@@ -5,8 +5,6 @@ import ChartRing from './ChartRing';
 
 const PostGameCard = ({ accuracy, time, charsPerMin }) => {
 
-    const seconds = time.toFixed(0)
-
     return (
         <div className='game_card_wrapper'>
         <Container>
@@ -17,7 +15,7 @@ const PostGameCard = ({ accuracy, time, charsPerMin }) => {
                 </Segment>
                 <Segment textAlign='center'>
                     Seconds
-                    <ChartRing value1={seconds} value2={seconds} colour='orange'/>
+                    <ChartRing value1={time} value2={time} colour='orange'/>
                 </Segment>
                 <Segment textAlign='center'>
                     Chars/min
