@@ -22,10 +22,8 @@ class CodeRacerContainer extends React.Component {
         go: false,
         time: 0, 
         finish: false,
-        charsPerMin: 0
+        charsPerMin: 0,
     }
-
-
 
     getSnippets = () => {
         fetch('http://localhost:3000/api/v1/snippets')
@@ -109,6 +107,28 @@ class CodeRacerContainer extends React.Component {
         this.setState({ time: elapsed })
     }
 
+    postGame = () => {
+
+        const { codeObj, time, accuracy, charsPerMin } = this.state
+        const { user_id } = this.props
+
+        return fetch('http://localhost:3000/api/v1/games', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                game: {
+                    user_id: user_id,
+                    snippet_id: codeObj.id,
+                    time_taken: parseInt(time),
+                    accuracy_percentage: accuracy,
+                    characters_per_min: parseInt(charsPerMin)
+                }
+            })
+        })
+    }
+
     changeProgressBarHandler = (newValue) => {
         const codeLength = this.state.code.length
         const inputLength = newValue.length
@@ -116,9 +136,8 @@ class CodeRacerContainer extends React.Component {
     }
 
     render() {
-        const { user_id } = this.props
         const { codeObj, code, row, newValue, progressWidth, readOnly, accuracy, charsPerMin, go, finish, time } = this.state
-        const { handleTextChange, handleGoClick, setTime, calculateCharsPerMin } = this
+        const { handleTextChange, handleGoClick, setTime, calculateCharsPerMin, postGame } = this
         return (
             <>
             {!finish ? 
@@ -129,7 +148,7 @@ class CodeRacerContainer extends React.Component {
                         {!go ? <Start handleGoClick={handleGoClick} /> : <Timer setTime={setTime} calculateCharsPerMin={calculateCharsPerMin}/> }
                 </div>
                 :
-                <PostGameContainer user_id={user_id} codeObj={codeObj} code={code} accuracy={accuracy} charsPerMin={charsPerMin} time={time}/>
+                <PostGameContainer codeObj={codeObj} code={code} accuracy={accuracy} charsPerMin={charsPerMin} time={time} postGame={postGame}/>
             }
             </>
         )

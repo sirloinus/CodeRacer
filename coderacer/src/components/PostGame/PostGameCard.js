@@ -3,7 +3,9 @@ import React from 'react'
 import { Container, Segment } from 'semantic-ui-react'
 import ChartRing from './ChartRing';
 
-const PostGameCard = ({ accuracy, time, charsPerMin }) => {
+const PostGameCard = ({ accuracy, time, charsPerMin, postGame }) => {
+
+    postGame()
 
     return (
         <div className='game_card_wrapper'>
