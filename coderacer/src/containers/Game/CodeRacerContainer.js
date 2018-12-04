@@ -9,6 +9,7 @@ import Start from '../../components/Game/StartButton';
 class CodeRacerContainer extends React.Component {
 
     state = {
+        codeObj: '',
         code: '',
         row: 1,
         newValue: '',
@@ -27,13 +28,15 @@ class CodeRacerContainer extends React.Component {
 
 
     getSnippets = () => {
-        fetch('data.json')
+        fetch('http://localhost:3000/api/v1/snippets')
             .then(resp => resp.json())
-            .then(snippets => this.setState({
-                // random num picked (no longer than length of array), 
-                // code snippet of that index selected as the value of "code" state for game
-                code: snippets.codeSnippets[Math.floor(Math.random() * (snippets.codeSnippets.length))].code
-            })
+            .then(snippets => {
+                const snippet = snippets[Math.floor(Math.random() * (snippets.length))]
+                this.setState({
+                    codeObj: snippet,
+                    code: snippet.content
+                })
+            }
         )
     }
 

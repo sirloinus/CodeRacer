@@ -8,20 +8,22 @@ class App extends React.Component {
 
   state = {
     username: '',
+    user_id: '',
     signed_in: false,
-    users: [],
-    user: null
+    users: []
   }
 
   signin = user => {
     localStorage.setItem('token', user.token)
     this.setState({ username: user.username })
+    this.setState({ user_id: user.user_id })
     this.setState({ signed_in: true })
   }
 
   signout = () => {
     localStorage.removeItem('token')
     this.setState({ username: '' })
+    this.setState({ user_id: '' })
     this.setState({  signed_in: false })
   }
 
@@ -31,8 +33,7 @@ class App extends React.Component {
 
   componentDidMount(){
     this.getData()
-    this.fetchUsers()
-    this.getUser()
+    // this.fetchUsers()
   }
 
   getData() {
@@ -54,12 +55,6 @@ class App extends React.Component {
     fetch('http://localhost:3000/api/v1/users')
       .then(resp => resp.json())
       .then(users => this.setState({ users }))
-  }
-
-  getUser = () => {
-    const user = this.state.users.filter(user => user.username === this.state.username)
-    this.state.username !== '' && this.setState({ user })
-    console.log(user)
   }
   
   render(){
