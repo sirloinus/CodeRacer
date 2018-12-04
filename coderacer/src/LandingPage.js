@@ -4,9 +4,6 @@ import CodeRacerContainer from './containers/Game/CodeRacerContainer'
 import { Button } from 'semantic-ui-react'
 import GamesList from './containers/UserProfile/GamesList';
 
-
-
-
 class LandingPage extends React.Component {
 
     state = {

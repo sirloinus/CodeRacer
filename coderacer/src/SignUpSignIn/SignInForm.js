@@ -30,11 +30,11 @@ class SignInForm extends React.Component {
     const { handleChange, handleSubmit } = this
 
     return (
-      <div>
+      <div className='sign_wrapper'>
         Login:
         <Form.Input
           id='usernameInput'
-          label='Username'
+          label='Username '
           value={username}
           onChange={handleChange}
           margin='normal'
@@ -43,7 +43,7 @@ class SignInForm extends React.Component {
         <br />
         <Form.Input
           id='passwordInput'
-          label='Password'
+          label='Password '
           value={password}
           onChange={handleChange}
           margin='normal'

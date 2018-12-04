@@ -6,8 +6,6 @@ import gif1 from './assets/coderacer_gif_3.gif'
 import logo from './assets/coderacer_logo_new.png'
 import './LoginScreen.css'
 
-
-
 class LoginScreen extends React.Component {
 
     state = {
@@ -27,14 +25,18 @@ class LoginScreen extends React.Component {
         this.setState({ focus: false })
     }
 
+    handleHomeClick = () => {
+        this.setState({registration: false, login:false})
+    }
+
     render() {
-        const { handleRegisterClick, handleLoginClick, handleMouseOff, handleMouseOver } = this
+        const { handleRegisterClick, handleLoginClick, handleMouseOff, handleMouseOver, handleHomeClick } = this
         const { signin, signup } = this.props
         const { registration, login, focus } = this.state
         return(
         <div>
             <div>
-                <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} />
+                <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} handleHomeClick={handleHomeClick}/>
                 {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />}
                 {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}   
 
