@@ -36,11 +36,9 @@ class SignUpForm extends React.Component {
   render () {
     // const { username, password } = this.state
     const { handlePWChange, handleUsernameChange, handleSubmit } = this
-    const { handleLoginClick } = this.props
 
     return (
       <div className='sign_wrapper'>
-          {/* Register: */}
         <Form.Input
           fluid
           placeholder='Username'
@@ -60,9 +58,6 @@ class SignUpForm extends React.Component {
         <Button onClick={handleSubmit}>
           SIGN UP
         </Button>
-        {/* <Button onClick={handleLoginClick}>
-            LOGIN
-        </Button> */}
       </div>
     )
   }

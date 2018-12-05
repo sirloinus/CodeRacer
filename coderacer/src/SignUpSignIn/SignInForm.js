@@ -26,12 +26,10 @@ class SignInForm extends React.Component {
 
   render () {
     const { username, password } = this.state
-    const { handleRegisterClick } = this.props
     const { handleChange, handleSubmit } = this
 
     return (
       <div className='sign_wrapper'>
-        {/* Login: */}
         <Form.Input
           fluid
           id='usernameInput'
@@ -56,9 +54,6 @@ class SignInForm extends React.Component {
         <Button onClick={handleSubmit} variant='contained'>
           LOGIN
         </Button>
-        {/* <Button onClick={handleRegisterClick}>
-          REGISTER
-        </Button> */}
       </div>
     )
   }

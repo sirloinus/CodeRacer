@@ -43,9 +43,7 @@ class LoginScreen extends React.Component {
         return(
         <div>
             <div>
-                {/* <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} handleHomeClick={handleHomeClick}/> */}
-                {/* {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />} */}
-                {/* {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}    */}
+               
 
             </div>
 

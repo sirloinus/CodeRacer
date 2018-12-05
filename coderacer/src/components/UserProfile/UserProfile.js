@@ -1,13 +1,15 @@
 import React from 'react'
 import { Container, Segment, SegmentGroup, Image, Dropdown } from 'semantic-ui-react'
 import Webcam from "react-webcam";
+import './UserProfile.css'
 
 class UserProfile extends React.Component {
 
     state = {
         user: this.props.user,
         picture_taken: false,
-        localPic: ''
+        localPic: '',
+        elapsed: null
     }
 
 
@@ -22,7 +24,12 @@ class UserProfile extends React.Component {
         pic_url: image
       })
     }).then(resp => resp.json())
-  }
+    }
+
+
+    takingNewPic = () => {
+        this.setState({ takeNewPic: true })
+    }
 
 
     setRef = webcam => {
@@ -35,95 +42,104 @@ class UserProfile extends React.Component {
         this.postImage(this.props.user_id, imageSrc)
         this.setState({ picture_taken: true })
         this.setState({ localPic: imageSrc })
-     }
+        this.setState({ takeNewPic: false })
+    }
+
+    tick() {
+        this.setState((prevState) => ({
+            elapsed: prevState.elapsed - 1
+        }))
+    }
+
+
+    bleh = () => {
+        if(this.state.elapsed > 0){
+            this.tick()
+        } else {
+            clearInterval(this.interval)
+            this.setState({ elapsed: null })
+            this.capture()
+        }
+    }
+
+    componentWillUnmount(){
+        console.log("getting new user")
+        this.props.fetchUser(this.props.user_id)
+    }
+
+    countDown = () => {
+        this.setState({ elapsed: 3 })
+        this.interval = setInterval(() => this.bleh(), 1000)
+    }
 
     
 
     render(){
 
-        const { user, picture_taken, localPic } = this.state
-        const videoConstraints = {
-                width: 1280,
-                height: 720,
-                facingMode: "user"
-        }
+        const { user, localPic, elapsed, takeNewPic } = this.state
 
         return(
 
-        <div>
+        <div className="webcam">
 
+        {
+            takeNewPic
 
-        <div>
-            {
-                
-                user.pic_url 
-                    ? null
-                    : picture_taken
-                    ? null
-                    :
-                <div >
+            ?   <div>
                     <Webcam
-                    style={{ 
-                        marginLeft: "550px",
-                        borderRadius: "50%"
-                    }}
+                    style={{ borderRadius: "50%" }}
                     audio={false}
-                    // height={350}
+                    // objectFit={"cover"}
+                    height={450}
                     ref={this.setRef}
                     screenshotFormat="image/jpeg"
-                    // width={350}
-                    videoConstraints={videoConstraints}
+                    width={450}
+                    // videoConstraints={videoConstraints}
                     />
-                    <button onClick={this.capture}>Capture photo</button>
-                </div>
-                
-            }
-        </div>
+                    { <button onClick={this.countDown}>Capture photo</button>}
+                    <h1 className="centered">{elapsed}</h1>
+                 </div>
 
+            :   this.state.localPic
 
+                ?   <div>
 
-            <div style={{
-                      borderRadius: "10px",
-                      margin: "1 em auto",
-                      width: "90%",
-                      textAlign: "center" 
-                }}>
+                            <img objectFit="contain" src={localPic} alt="nothing" height={450} width={450} style={{ borderRadius: "50%" }}/>
+
+                    </div>
+
+                :   user.pic_url 
+                    
+                    ?   <div>
+
+                            <img objectFit="contain" src={user.pic_url} alt="nothing" height={450} width={450} style={{ borderRadius: "50%" }}/>
+
+                        </div>
+
+                    :   <div>
+                            <Webcam
+                            style={{ borderRadius: "50%" }}
+                            audio={false}
+                            // objectFit={"cover"}
+                            height={450}
+                            ref={this.setRef}
+                            screenshotFormat="image/jpeg"
+                            width={450}
+                            // videoConstraints={videoConstraints}
+                            />
+                            { <button onClick={this.countDown}>Capture photo</button>}
+                            <h1 className="centered">{elapsed}</h1>
+                        </div>
+
+        }
+
+            <div>
                 {
-
-                <div style={{ marginLeft: "200px", tranform: "scale(1.3)"}}>
-                                {/* <Segment> */}
-                                    <div>
-                                    {
-                                        user.pic_url 
-                                        ? <img id="image" style={{borderRadius: "20%"}} src={user.pic_url} alt="take a picture!" /> 
-                                        : <img id="image" style={{borderRadius: "20%"}} src={localPic} alt="take a picture!" /> 
-                                    }
-
-                                        <div style={{ fontFamily: "monospace", fontSize: "30px", paddingTop: "30px"}}>
-                                            
-                                        {user.username}
-
-                                        </div>
-                                    </div>
-                                {/* </Segment> */}
-                            {/* <Segment.Group vertical> */}
-                                {/* <Segment> */}
-
-                                {/* </Segment> */}
-                        
-                            {/* </Segment.Group> */}
-                
-
-
-                </div>
-
-                 }
-
+                    !takeNewPic && (user.pic_url || localPic) && <button onClick={this.takingNewPic}>Take new picture</button>
+                }
             </div>
 
-
         </div>
-
 
         )
     }
