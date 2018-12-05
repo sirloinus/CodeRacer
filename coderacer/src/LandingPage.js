@@ -19,7 +19,7 @@ class LandingPage extends React.Component {
         speediestUser: '',
         games: [],
         sortedGamesSpeed: [],
-        rankedUsernames: [],
+        rankedUserObjs: [],
         setPic: false,
         user: '',
     }
@@ -36,7 +36,10 @@ class LandingPage extends React.Component {
         this.getGames()
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56189052203d4eea35f091436bbaf806a6c5a94f
     handlePlayClick = () => {
         this.setState({ playing: true, viewGames: false, welcomePage: false, leaderboard: false })
         console.log("playing!")
@@ -65,9 +68,8 @@ class LandingPage extends React.Component {
                 this.setState({ games })
                 this.findSpeediestUser(games)
                 this.findMostAccUser(games)
-            }).then(this.rankUsers())
+            })
     }
-
 
     findMostAccUser = async games => {
         const sorted = games.sort((a, b) => a.accuracy_percentage - b.accuracy_percentage)
@@ -81,7 +83,7 @@ class LandingPage extends React.Component {
         const speediest = sorted[sorted.length - 1]
         const user = await this.findUser(speediest.user_id)
         this.setState({ speediestUser: user, sortedGamesSpeed: sorted })
-        // return user.username
+        this.rankUsers()
     }
 
     findUser = async userId => {
@@ -92,15 +94,15 @@ class LandingPage extends React.Component {
     rankUsers = async () => {
         const gamesCopy = [...this.state.sortedGamesSpeed]
         const userIds = gamesCopy.map(game => game.user_id)
-        const userObjs = await userIds.map(userId => this.props.findUser(userId))
-        const rankedUsernames = userObjs.map(user => user.username)
-        this.setState({ rankedUsernames })
+        const userObjs = await Promise.all(userIds.map(userId => this.findUser(userId)))
+        this.setState({ rankedUserObjs: userObjs })
     }
 
     render(){
         const { signout, user_id } = this.props
-        const { playing, viewGames, welcomePage, leaderboard, speediestUser, mostAccUser, sortedGamesSpeed, rankedUsernames, user } = this.state
-        const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick, findUser, fetchUser } = this
+        const { playing, viewGames, welcomePage, leaderboard, speediestUser, mostAccUser, rankedUserObjs, sortedGamesSpeed, user } = this.state
+        const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick } = this
+
 
         return(
             <div>
@@ -119,8 +121,9 @@ class LandingPage extends React.Component {
                         : welcomePage
                             ? <Welcome handlePlayClick={handlePlayClick}/> 
                             : leaderboard
-                                ? <Leaderboard speediestUser={speediestUser} mostAccUser={mostAccUser} rankedUsernames={rankedUsernames} sortedGamesSpeed={sortedGamesSpeed} findUser={findUser}/>
-                                : <UserProfile user_id={user_id} user={user} fetchUser={fetchUser}/>                     
+                                ? <Leaderboard speediestUser={speediestUser} mostAccUser={mostAccUser} rankedUserObjs={rankedUserObjs} sortedGamesSpeed={sortedGamesSpeed}/>
+                                : <UserProfile user_id={user_id} user={user} />                     
+
 
                         )
                 }

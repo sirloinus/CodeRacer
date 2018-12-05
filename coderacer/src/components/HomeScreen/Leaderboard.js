@@ -1,26 +1,17 @@
 import React from 'react'
-import { List, Image, Container, Divider, Segment, Header } from 'semantic-ui-react'
+import { List, Image, Container, Divider, Segment, Header, ListContent } from 'semantic-ui-react'
 
 
 class Leaderboard extends React.Component {
 
-    state = {
-        users: []
-    }
-
-    rankUsers = async () => {
-        const gamesCopy = [...this.props.sortedGamesSpeed]
-        const userIds = gamesCopy.map(game => game.user_id)
-        const userObjs = await userIds.map(userId => this.props.findUser(userId))
-        this.setState({ users: userObjs})
-    }
-
-    componentDidMount() {
-        this.rankUsers()
+    findIndex = (array, item) => {
+        return array.indexOf(item)
     }
 
     render(){
-        const { speediestUser, mostAccUser, rankedUsernames } = this.props
+        const { speediestUser, mostAccUser, sortedGamesSpeed, rankedUserObjs } = this.props
+        const speeds = sortedGamesSpeed.map(game => game.characters_per_min)
+        const { findIndex } = this
         return(
             <Container className='leader_container' textAlign='center'>
                 <Segment>
@@ -44,13 +35,17 @@ class Leaderboard extends React.Component {
                     </List>
                 <Divider/>
                     <List animated vertical divided ordered >
-
-                        <List.Item>
-                        <Image avatar src='USER IMAGE' />
-                        <List.Content>
-                            test
-                        </List.Content>
-                        </List.Item>
+                        {rankedUserObjs.map(user => 
+                            <List.Item>
+                                <Image avatar src={user.pic_url} />
+                                <List.Content>
+                                    {user.username}
+                                </List.Content>
+                                <ListContent>
+                                    {speeds[findIndex(rankedUserObjs, user)]} Chars/min
+                                </ListContent>
+                            </List.Item>
+                        )}
                     </List>
                 </Segment>
             </Container>
