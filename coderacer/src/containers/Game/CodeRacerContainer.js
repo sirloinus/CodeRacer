@@ -193,7 +193,7 @@ class CodeRacerContainer extends React.Component {
         return (
             <>
             {!finish ? 
-                <div style={{ paddingTop: "100px" }}>
+                <div style={{ paddingTop: "35px" }}>
                     <CodeSnippet code={code} />
                     <TextEditor row={row} newValue={newValue} handleTextChange={handleTextChange} readOnly={readOnly}/>
                     <ProgressBar progressWidth={progressWidth} />

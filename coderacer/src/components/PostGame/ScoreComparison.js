@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Segment } from 'semantic-ui-react'
+import './ScoreComparison.css'
 
 class ScoreComparison extends React.Component {
 
@@ -13,13 +14,19 @@ class ScoreComparison extends React.Component {
         return (
             <div className='comparison_wrapper'>
             <Container>
-                { perc_better_time_than_snippet 
-                ? <Segment>  You completed this snippet quicker than {Math.floor(perc_better_time_than_snippet)}% of players! </Segment>
-                : null 
+                { 
+                <Segment> 
+                    <div className="typewriter">
+                        <h1 style={{ fontSize: "15px", textAlign: "center", fontFamily: "monospace", color: "rgb(102, 102, 102)"}}>You completed this snippet quicker than <strong>{Math.floor(perc_better_time_than_snippet)}%</strong> of players!</h1> 
+                    </div>
+                </Segment>
                 }
-                { perc_better_chars_per_min 
-                ? <Segment> Your characters per minute is faster than {Math.floor(perc_better_chars_per_min)}% of players! </Segment>
-                : null
+                { 
+                <Segment> 
+                    <div className="typewriter">
+                        <h1 style={{ fontSize: "15px", textAlign: "center", fontFamily: "monospace", color: "rgb(102, 102, 102)"}}>You have a higher chars/min than <strong>{Math.floor(perc_better_chars_per_min)}%</strong> of players!</h1>
+                    </div>
+                </Segment>
                 }
             </Container>
             </div>

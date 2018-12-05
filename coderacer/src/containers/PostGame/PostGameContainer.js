@@ -13,7 +13,7 @@ class PostGameContainer extends React.Component {
             <div>
                 <CodeSnippet code={code}/>
                 <PostGameCard accuracy={accuracy} charsPerMin={charsPerMin} time={time} postGame={postGame}/>
-                <ScoreComparison/>
+                {/* <ScoreComparison/> */}
                 <ScoreComparison perc_better_time_than_snippet ={perc_better_time_than_snippet} perc_better_chars_per_min={perc_better_chars_per_min}/>
             </div>
         )
