@@ -3,6 +3,7 @@ import NavBar from './components/NavBar'
 import CodeRacerContainer from './containers/Game/CodeRacerContainer'
 import { Button } from 'semantic-ui-react'
 import GamesList from './containers/UserProfile/GamesList';
+import Welcome from './components/HomeScreen/Welcome';
 
 class LandingPage extends React.Component {
 
@@ -35,7 +36,7 @@ class LandingPage extends React.Component {
                     ? <GamesList user_id={user_id}/>
                     : (playing
                         ? <CodeRacerContainer user_id={user_id} />
-                        : <Button onClick={handlePlayClick}>Play!</Button>)
+                        : <Welcome onClick={handlePlayClick}/> )
                 }
 
             </div>

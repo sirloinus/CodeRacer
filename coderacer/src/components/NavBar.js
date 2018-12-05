@@ -1,5 +1,6 @@
 import React from 'react'
 import { Menu } from 'semantic-ui-react'
+import logo from '../assets/coderacer_logo_new.png'
 
 class NavBar extends React.Component {
 
@@ -7,9 +8,9 @@ class NavBar extends React.Component {
         const { signout, handleBackToMainClick, handleMyGamesClick} = this.props
         return (
 
-            <Menu>
+            <Menu borderless>
                 <Menu.Item onClick={handleBackToMainClick}>
-                    CodeRacer
+                    <img style={{width: '12em'}} src={logo} alt={'bleh'}/>
                 </Menu.Item>
                 <Menu.Item position='right'>
                     Leaderboard
