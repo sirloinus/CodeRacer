@@ -5,14 +5,17 @@ import logo from '../assets/coderacer_logo_new.png'
 class NavBar extends React.Component {
 
     render(){
-        const { signout, handleBackToMainClick, handleMyGamesClick} = this.props
+        const { signout, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick } = this.props
         return (
 
             <Menu borderless>
                 <Menu.Item onClick={handleBackToMainClick}>
                     <img style={{width: '12em'}} src={logo} alt={'bleh'}/>
                 </Menu.Item>
-                <Menu.Item position='right'>
+                <Menu.Item onClick={handleViewProfileClick} position='right'>
+                    Profile
+                </Menu.Item>
+                <Menu.Item onClick={handleViewLeaderBoardClick}>
                     Leaderboard
                 </Menu.Item>
                 <Menu.Item onClick={handleMyGamesClick}>

@@ -10,7 +10,8 @@ class App extends React.Component {
     username: '',
     user_id: '',
     signed_in: false,
-    users: []
+    users: [],
+    takingPicture: true
   }
 
   signin = user => {
@@ -58,14 +59,14 @@ class App extends React.Component {
   }
   
   render(){
-    const { signin, signout, signup } = this
-    const { username, signed_in, user_id } = this.state
+    const { signin, signout, signup, postImage } = this
+    const { username, signed_in, user_id, takingPicture } = this.state
     return(
       <div>
         {
-          signed_in
+          signed_in 
           ? <LandingPage signout={signout} user_id={user_id} />
-          : <LoginScreen signin={signin} signup={signup} signout={signout} username={username} />
+          : <LoginScreen signin={signin} signup={signup} signout={signout} username={username} postImage={postImage} user_id={user_id} />
         }
         {/* <CodeRacerContainer/> */}
       </div>
