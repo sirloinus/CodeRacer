@@ -36,10 +36,7 @@ class LandingPage extends React.Component {
         this.getGames()
     }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 56189052203d4eea35f091436bbaf806a6c5a94f
     handlePlayClick = () => {
         this.setState({ playing: true, viewGames: false, welcomePage: false, leaderboard: false })
         console.log("playing!")
@@ -100,6 +97,8 @@ class LandingPage extends React.Component {
 
     render(){
         const { signout, user_id } = this.props
+
+
         const { playing, viewGames, welcomePage, leaderboard, speediestUser, mostAccUser, rankedUserObjs, sortedGamesSpeed, user } = this.state
         const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick } = this
 
