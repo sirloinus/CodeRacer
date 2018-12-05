@@ -10,7 +10,7 @@ class PostGameContainer extends React.Component {
         const { code, accuracy, charsPerMin, time, postGame, perc_better_time_than_snippet, perc_better_chars_per_min } = this.props
 
         return (
-            <div>
+            <div style={{ paddingTop: "35px" }}>
                 <CodeSnippet code={code}/>
                 <PostGameCard accuracy={accuracy} charsPerMin={charsPerMin} time={time} postGame={postGame}/>
                 {/* <ScoreComparison/> */}
