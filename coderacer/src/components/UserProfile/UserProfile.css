@@ -1,0 +1,15 @@
+.webcam {
+    margin: 0 auto;
+    width: 450px;
+    object-fit: cover;
+    position: relative;
+    text-align: centered;
+    /* padding-top: 100px; */
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
