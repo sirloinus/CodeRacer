@@ -13,8 +13,22 @@ class LandingPage extends React.Component {
         playing: false,
         viewGames: false,
         welcomePage: true,
-        leaderboard: false
+        leaderboard: false,
+        user: ''
     }
+
+    fetchUser = (user_id) => {
+        fetch(`http://localhost:3000/api/v1/users/${user_id}`)
+        .then(resp => resp.json())
+        .then(user => this.setState({ user }))
+        .then(user => console.log(user))
+    }
+
+    componentDidMount(){
+        this.fetchUser(this.props.user_id)
+    }
+
+
 
     handlePlayClick = () => {
         this.setState({ playing: true, viewGames: false, welcomePage: false, leaderboard: false })
@@ -40,7 +54,7 @@ class LandingPage extends React.Component {
 
     render(){
         const { signout, user_id } = this.props
-        const { playing, viewGames, welcomePage, leaderboard } = this.state
+        const { playing, viewGames, welcomePage, leaderboard, user } = this.state
         const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick } = this
         return(
             <div>
@@ -61,7 +75,7 @@ class LandingPage extends React.Component {
                             ? <Welcome onClick={handlePlayClick}/> 
                             : leaderboard
                                 ? <Leaderboard />
-                                : <UserProfile user_id={user_id} />
+                                : <UserProfile user_id={user_id} user={user} />
                         
                         )
                 }
