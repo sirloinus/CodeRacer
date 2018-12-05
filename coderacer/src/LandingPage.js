@@ -36,6 +36,7 @@ class LandingPage extends React.Component {
         this.getGames()
     }
 
+
     handlePlayClick = () => {
         this.setState({ playing: true, viewGames: false, welcomePage: false, leaderboard: false })
         console.log("playing!")
@@ -96,6 +97,7 @@ class LandingPage extends React.Component {
 
     render(){
         const { signout, user_id } = this.props
+
         const { playing, viewGames, welcomePage, leaderboard, speediestUser, mostAccUser, rankedUserObjs, sortedGamesSpeed, user } = this.state
         const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick } = this
 
@@ -108,17 +110,18 @@ class LandingPage extends React.Component {
                     handleViewLeaderBoardClick={handleViewLeaderBoardClick}
                     handleViewProfileClick={handleViewProfileClick} 
                 />
-                {/* <Button onClick={handlePlayClick}>Play!</Button> */}
 
                 {   viewGames
                     ? <GamesList user_id={user_id}/>
                     : (playing
-                        ? <CodeRacerContainer user_id={user_id} />
+                        ? <CodeRacerContainer user_id={user_id}/>
                         : welcomePage
                             ? <Welcome handlePlayClick={handlePlayClick}/> 
                             : leaderboard
+
                                 ? <Leaderboard speediestUser={speediestUser} mostAccUser={mostAccUser} rankedUserObjs={rankedUserObjs} sortedGamesSpeed={sortedGamesSpeed}/>
                                 : <UserProfile user_id={user_id} user={user} />                     
+
 
                         )
                 }
