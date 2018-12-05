@@ -22,7 +22,7 @@ class GamesList extends React.Component {
         // const { fetchUserCodeSnippet } = this
         return (
             <>
-                {games.map(game => <GameCard game={game} />)}
+                {games.reverse().map(game => <GameCard game={game} />)}
             </>
         )
     }

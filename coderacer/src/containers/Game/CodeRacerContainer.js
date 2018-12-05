@@ -85,6 +85,7 @@ class CodeRacerContainer extends React.Component {
     }
 
     handleTextChange = (newValue, event) => {
+        this.setState({ go: true })
         // console.log('newValue.slice(-1)', newValue.slice(-1))
         if (event.action === "insert") {
             this.compareCode(event, newValue)
@@ -192,7 +193,7 @@ class CodeRacerContainer extends React.Component {
         return (
             <>
             {!finish ? 
-                <div>
+                <div style={{ paddingTop: "35px" }}>
                     <CodeSnippet code={code} />
                     <TextEditor row={row} newValue={newValue} handleTextChange={handleTextChange} readOnly={readOnly}/>
                     <ProgressBar progressWidth={progressWidth} />

@@ -21,7 +21,7 @@ class TextEditor extends React.Component {
                     name="UNIQUE_ID_OF_DIV"
                     editorProps={{ $blockScrolling: true }}
                     tabSize={2}
-                    readOnly={readOnly ? true : false}
+                    // readOnly={readOnly ? true : false}
                 />
             </div>
         )

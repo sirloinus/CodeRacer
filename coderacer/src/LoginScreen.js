@@ -5,6 +5,7 @@ import LoginNav from './LoginNav'
 import gif1 from './assets/coderacer_gif_3.gif'
 import logo from './assets/coderacer_logo_new.png'
 import './LoginScreen.css'
+import { Button } from 'semantic-ui-react'
 
 class LoginScreen extends React.Component {
 
@@ -36,23 +37,17 @@ class LoginScreen extends React.Component {
         return(
         <div>
             <div>
-                <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} handleHomeClick={handleHomeClick}/>
-                {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />}
-                {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}   
+                {/* <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} handleHomeClick={handleHomeClick}/> */}
+                {/* {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />} */}
+                {/* {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}    */}
 
             </div>
 
             <div>
 
-                {/* <div style={{
-                    position: "absolute",
-                    fontSize: "200px"
-                }}>
-                PLAY
-                </div> */}
-
                 <img src={logo}
                     alt={"bleh"}
+                    onClick={handleHomeClick}
                     style={{
                     transform: "scale(0.6)",
                     display: "block",
@@ -61,19 +56,30 @@ class LoginScreen extends React.Component {
                     width: "50%",
                     paddingTop: "10px"
                 }}/>
+                <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOff}>
 
-                <img className={focus ? 'start-button' : null} 
-                    onMouseOver={handleMouseOver} 
-                    onMouseOut={handleMouseOff} 
-                    src={gif1} 
-                    alt={"bleh"} 
-                    style={{    
-                    transform: "scale(1)",
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "50%"
-                }} />
+                <p className={focus ? 'login-button' : 'login-button-not-displayed'}>
+                    <Button onClick={handleLoginClick}>LOGIN</Button>
+                    <Button onClick={handleRegisterClick}>SIGN UP</Button>
+                </p>
+
+                {   !registration && !login 
+                    ? <img className={focus ? 'start-button' : null} 
+                        src={gif1} 
+                        alt={"bleh"} 
+                        style={{    
+                        transform: "scale(1)",
+                        display: "block",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        width: "50%"
+                    }} />
+                    : registration
+                    ? <SignUpForm signup={signup} handleLoginClick={handleLoginClick}/>
+                    : <SignInForm signin={signin} handleRegisterClick={handleRegisterClick}/>  
+
+                }
+                </div>
 
             </div>
 

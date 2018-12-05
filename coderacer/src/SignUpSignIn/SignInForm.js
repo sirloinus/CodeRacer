@@ -54,9 +54,9 @@ class SignInForm extends React.Component {
         <Button onClick={handleSubmit} variant='contained'>
           LOGIN
         </Button>
-        <Button onClick={handleRegisterClick}>
+        {/* <Button onClick={handleRegisterClick}>
           REGISTER
-        </Button>
+        </Button> */}
       </div>
     )
   }
