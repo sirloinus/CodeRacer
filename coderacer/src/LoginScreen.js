@@ -37,9 +37,9 @@ class LoginScreen extends React.Component {
         return(
         <div>
             <div>
-                <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} handleHomeClick={handleHomeClick}/>
-                {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />}
-                {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}   
+                {/* <LoginNav handleLoginClick={handleLoginClick} handleRegisterClick={handleRegisterClick} handleHomeClick={handleHomeClick}/> */}
+                {/* {registration && <SignUpForm signup={signup} handleLoginClick={handleLoginClick} />} */}
+                {/* {login && <SignInForm signin={signin} handleRegisterClick={handleRegisterClick} />}    */}
 
             </div>
 
@@ -47,6 +47,7 @@ class LoginScreen extends React.Component {
 
                 <img src={logo}
                     alt={"bleh"}
+                    onClick={handleHomeClick}
                     style={{
                     transform: "scale(0.6)",
                     display: "block",
@@ -55,16 +56,15 @@ class LoginScreen extends React.Component {
                     width: "50%",
                     paddingTop: "10px"
                 }}/>
-                <div onMouseOver={handleMouseOver} 
-                    onMouseOut={handleMouseOff}
-                >
+                <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOff}>
 
-                <Button className={focus ? 'login-button' : 'login-button-not-displayed'}>
-                    LOGIN 
-                </Button>
+                <p className={focus ? 'login-button' : 'login-button-not-displayed'}>
+                    <Button onClick={handleLoginClick}>LOGIN</Button>
+                    <Button onClick={handleRegisterClick}>SIGN UP</Button>
+                </p>
 
-
-                    <img className={focus ? 'start-button' : null} 
+                {   !registration && !login 
+                    ? <img className={focus ? 'start-button' : null} 
                         src={gif1} 
                         alt={"bleh"} 
                         style={{    
@@ -74,6 +74,11 @@ class LoginScreen extends React.Component {
                         marginRight: "auto",
                         width: "50%"
                     }} />
+                    : registration
+                    ? <SignUpForm signup={signup} handleLoginClick={handleLoginClick}/>
+                    : <SignInForm signin={signin} handleRegisterClick={handleRegisterClick}/>  
+
+                }
                 </div>
 
             </div>

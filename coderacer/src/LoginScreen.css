@@ -1,5 +1,5 @@
  .start-button {
-    animation-duration: 0.1s;
+    animation-duration: 0.2s;
     animation-name: fadeout;
     -webkit-filter: blur(5px);
     -moz-filter: blur(5px);
@@ -7,24 +7,6 @@
     -ms-filter: blur(5px);
     filter: blur(3px);
     opacity: 0.4;
- }
-
- .login-button {
-   display: block;
-   position: absolute;
-   font-size: 20px;
-   left: 480px;
-   top: 220px;
-   z-index: 1;
- }
-
- .login-button-not-displayed {
-     display: block;
-     position: absolute;
-     font-size: 20px;
-     left: 480px;
-     top: 220px;
-     z-index: 0;
  }
 
  @keyframes fadeout {
@@ -47,22 +29,44 @@
     }
  }
 
- /* @keyframes fadein {
+
+  .login-button {
+   animation-duration: 1s;
+   animation-name: buttonfadein;
+   opacity: 1;
+   display: block;
+   position: relative;
+   font-size: 20px;
+   text-align: center;
+   z-index: 1;
+ }
+
+ .login-button-not-displayed {
+   opacity: 0.4;
+   position: relative;
+   font-size: 20px;
+   text-align: center;
+   z-index: 1;
+ }
+
+
+ @keyframes buttonfadein {
     from   {
-     display: block;
-     position: absolute;
-     font-size: 20px;
-     left: 480px;
-     top: 220px;
-     z-index: 0;
+      opacity: 0.4;
+      position: relative;
+      font-size: 20px;
+      text-align: center;
+      z-index: 1;
    }
 
-    to {
-          display: block;
-          position: absolute;
-          font-size: 20px;
-          left: 480px;
-          top: 220px;
-          z-index: 1;
-       }
- } */
+    to   {
+      animation-duration: 1s;
+      animation-name: fadein;
+      opacity: 1;
+      display: block;
+      position: relative;
+      font-size: 20px;
+      text-align: center;
+      z-index: 1;
+   }
+ }
