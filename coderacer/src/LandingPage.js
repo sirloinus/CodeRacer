@@ -14,12 +14,29 @@ class LandingPage extends React.Component {
         viewGames: false,
         welcomePage: true,
         leaderboard: false,
+
         mostAccUser: '',
         speediestUser: '',
         games: [],
         sortedGamesSpeed: [],
-        rankedUsernames: []
+        rankedUsernames: [],
+        setPic: false,
+        user: '',
     }
+
+    fetchUser = (user_id) => {
+        fetch(`http://localhost:3000/api/v1/users/${user_id}`)
+        .then(resp => resp.json())
+        .then(user => this.setState({ user }))
+        .then(user => console.log(user))
+    }
+
+    componentDidMount(){
+        this.fetchUser(this.props.user_id)
+    }
+
+
+
 
     handlePlayClick = () => {
         this.setState({ playing: true, viewGames: false, welcomePage: false, leaderboard: false })
@@ -86,8 +103,9 @@ class LandingPage extends React.Component {
 
     render(){
         const { signout, user_id } = this.props
-        const { playing, viewGames, welcomePage, leaderboard, speediestUser, mostAccUser, sortedGamesSpeed, rankedUsernames } = this.state
+        const { playing, viewGames, welcomePage, leaderboard, speediestUser, mostAccUser, sortedGamesSpeed, rankedUsernames, user } = this.state
         const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick, findUser } = this
+
         return(
             <div>
                 <NavBar 
@@ -107,7 +125,8 @@ class LandingPage extends React.Component {
                             ? <Welcome handlePlayClick={handlePlayClick}/> 
                             : leaderboard
                                 ? <Leaderboard speediestUser={speediestUser} mostAccUser={mostAccUser} rankedUsernames={rankedUsernames} sortedGamesSpeed={sortedGamesSpeed} findUser={findUser}/>
-                                : <UserProfile user_id={user_id} />                     
+                                : <UserProfile user_id={user_id} user={user} />                     
+
                         )
                 }
 

@@ -5,15 +5,12 @@ import Webcam from "react-webcam";
 class UserProfile extends React.Component {
 
     state = {
-        user: null
+        user: this.props.user,
+        picture_taken: false,
+        localPic: ''
     }
 
-    fetchUser = (user_id) => {
-        fetch(`http://localhost:3000/api/v1/users/${user_id}`)
-        .then(resp => resp.json())
-        // .then(user => console.log(user))
-        .then(user => this.setState({ user }))
-    }
+
 
     postImage = (user_id, image) => {
         fetch(`http://localhost:3000/api/v1/users/${user_id}`, {
@@ -27,11 +24,6 @@ class UserProfile extends React.Component {
     }).then(resp => resp.json())
   }
 
-    componentDidMount(){
-        this.fetchUser(this.props.user_id)
-    }
-
-
 
     setRef = webcam => {
         this.webcam = webcam;
@@ -41,13 +33,15 @@ class UserProfile extends React.Component {
         const imageSrc = this.webcam.getScreenshot();
         console.log(imageSrc)
         this.postImage(this.props.user_id, imageSrc)
+        this.setState({ picture_taken: true })
+        this.setState({ localPic: imageSrc })
      }
 
     
 
     render(){
 
-        const { user } = this.state
+        const { user, picture_taken, localPic } = this.state
         const videoConstraints = {
                 width: 1280,
                 height: 720,
@@ -58,57 +52,79 @@ class UserProfile extends React.Component {
 
         <div>
 
+
         <div>
-            <Webcam
-            audio={false}
-            height={350}
-            ref={this.setRef}
-            screenshotFormat="image/jpeg"
-            width={350}
-            videoConstraints={videoConstraints}
-            />
-            <button onClick={this.capture}>Capture photo</button>
+            {
+                
+                user.pic_url 
+                    ? null
+                    : picture_taken
+                    ? null
+                    :
+                <div >
+                    <Webcam
+                    style={{ 
+                        marginLeft: "550px",
+                        borderRadius: "50%"
+                    }}
+                    audio={false}
+                    // height={350}
+                    ref={this.setRef}
+                    screenshotFormat="image/jpeg"
+                    // width={350}
+                    videoConstraints={videoConstraints}
+                    />
+                    <button onClick={this.capture}>Capture photo</button>
+                </div>
+                
+            }
         </div>
 
 
 
-            <div>
+            <div style={{
+                      borderRadius: "10px",
+                      margin: "1 em auto",
+                      width: "90%",
+                      textAlign: "center" 
+                }}>
+                {
 
-                <Container>
-                    <SegmentGroup>
-                            <Segment.Group horizontal>
-                                <Segment>
-                                     <img src={user ? user.image_url : null}></img>
-                                    </Segment>
-                                <Segment.Group vertical>
-                                    <Segment>
-                                        
-                                    NAME
+                <div style={{ marginLeft: "200px", tranform: "scale(1.3)"}}>
+                                {/* <Segment> */}
+                                    <div>
+                                    {
+                                        user.pic_url 
+                                        ? <img id="image" style={{borderRadius: "20%"}} src={user.pic_url} alt="take a picture!" /> 
+                                        : <img id="image" style={{borderRadius: "20%"}} src={localPic} alt="take a picture!" /> 
+                                    }
 
-                                    </Segment>
-                                    <Segment >
+                                        <div style={{ fontFamily: "monospace", fontSize: "30px", paddingTop: "30px"}}>
                                             
-                                    HIGHER CHARS PER MIN
- 
-                                    </Segment>
-                                    <Segment >
-                                        
-                                    AVERAGE CHARS PER MIN
+                                        {user.username}
 
-                                    </Segment>
-                                </Segment.Group>
-                      
-                            </Segment.Group>
-                        <Segment>
-                        </Segment>
-                    </SegmentGroup>
-                </Container>
+                                        </div>
+                                    </div>
+                                {/* </Segment> */}
+                            {/* <Segment.Group vertical> */}
+                                {/* <Segment> */}
+
+                                {/* </Segment> */}
+                        
+                            {/* </Segment.Group> */}
+                
+
+
+                </div>
+
+                 }
 
             </div>
 
 
-
         </div>
+
+
         )
     }
 
