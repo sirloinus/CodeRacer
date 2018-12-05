@@ -77,6 +77,7 @@ class LandingPage extends React.Component {
                                 ? <Leaderboard />
                                 : <UserProfile user_id={user_id} user={user} />
                         
+
                         )
                 }
 

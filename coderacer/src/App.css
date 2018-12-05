@@ -9,13 +9,16 @@
 }
 
 .sign_wrapper {
+  border-color: black;
+  display: flex;
+  flex-direction: column;
   padding: 1em;
   max-width: 500px;
   width: 50%;
   margin: 2em auto;
   border-radius: 10px;
-  background-color: #272822;
-  color: #ffee59;
+  background-color: rgb(28, 129, 150);
+  color: rgb(255, 255, 255);
   font: 14px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace
 }
 
@@ -124,4 +127,41 @@
 #monospace {
   font-family: monospace;
   color: rgb(102, 102, 102)
+}
+
+
+.typewriterWelcome {
+  padding: 1.8em;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing2 5s steps(90, end),
+    blink-caret2 .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing2 {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret2 {
+  from, to { border-color: white }
+  50% { border-color: white; }
+}
+
+#play_btn {
+  max-width: 400px;
+  width: 30%;
+  margin: 2em auto;
+  padding: 1em
+}
+
+.welcome_container {
+    display: flex;
+    flex-direction: column;
 }
