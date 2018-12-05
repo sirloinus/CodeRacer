@@ -36,7 +36,7 @@ class LandingPage extends React.Component {
                     ? <GamesList user_id={user_id}/>
                     : (playing
                         ? <CodeRacerContainer user_id={user_id} />
-                        : <Welcome onClick={handlePlayClick}/> )
+                        : <Welcome handlePlayClick={handlePlayClick}/> )
                 }
 
             </div>
