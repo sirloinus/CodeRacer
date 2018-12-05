@@ -16,7 +16,7 @@ class API {
         user: {
           username: user.username,
           password: user.password,
-          pic_url: "placeholder (serializer)"
+          pic_url: null
         }
       })
     }).then(resp => resp.json())

@@ -1,6 +1,7 @@
 import React from 'react'
 import SignInForm from './SignUpSignIn/SignInForm'
 import SignUpForm from './SignUpSignIn/SignUpForm'
+import PictureAdd from './PictureAdd'
 import LoginNav from './LoginNav'
 import gif1 from './assets/coderacer_gif_3.gif'
 import logo from './assets/coderacer_logo_new.png'
@@ -12,7 +13,8 @@ class LoginScreen extends React.Component {
     state = {
         registration: false,
         login: false,
-        focus: false
+        focus: false,
+        picture: false
     }
 
     handleRegisterClick = () => this.setState({ login: false, registration: !this.state.registration })
@@ -27,13 +29,17 @@ class LoginScreen extends React.Component {
     }
 
     handleHomeClick = () => {
-        this.setState({registration: false, login:false})
+        this.setState({registration: false, login:false, picture: false})
     }
 
+
+
+
+
     render() {
-        const { handleRegisterClick, handleLoginClick, handleMouseOff, handleMouseOver, handleHomeClick } = this
+        const { handleRegisterClick, handleLoginClick, handleMouseOff, handleMouseOver, handleHomeClick, handleAddPic, handleSubmit } = this
         const { signin, signup } = this.props
-        const { registration, login, focus } = this.state
+        const { registration, login, focus, picture } = this.state
         return(
         <div>
             <div>
@@ -75,8 +81,8 @@ class LoginScreen extends React.Component {
                         width: "50%"
                     }} />
                     : registration
-                    ? <SignUpForm signup={signup} handleLoginClick={handleLoginClick}/>
-                    : <SignInForm signin={signin} handleRegisterClick={handleRegisterClick}/>  
+                        ? <SignUpForm signup={signup} handleSubmit={handleSubmit} handleLoginClick={handleLoginClick}/>
+                        : <SignInForm signin={signin} handleSubmit={handleSubmit} handleRegisterClick={handleRegisterClick}/>  
 
                 }
                 </div>
