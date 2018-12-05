@@ -33,6 +33,7 @@ class LandingPage extends React.Component {
 
     componentDidMount(){
         this.fetchUser(this.props.user_id)
+        this.getGames()
     }
 
 
@@ -69,9 +70,6 @@ class LandingPage extends React.Component {
             }).then(this.rankUsers())
     }
 
-    componentDidMount() {
-        this.getGames()
-    }
 
     findMostAccUser = async games => {
         const sorted = games.sort((a, b) => a.accuracy_percentage - b.accuracy_percentage)
