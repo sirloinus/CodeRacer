@@ -31,10 +31,11 @@ class SignInForm extends React.Component {
 
     return (
       <div className='sign_wrapper'>
-        Login:
+        {/* Login: */}
         <Form.Input
+          fluid
           id='usernameInput'
-          label='Username '
+          placeholder='Username'
           value={username}
           onChange={handleChange}
           margin='normal'
@@ -42,8 +43,9 @@ class SignInForm extends React.Component {
         />
         <br />
         <Form.Input
+          fluid
           id='passwordInput'
-          label='Password '
+          placeholder='Password'
           value={password}
           onChange={handleChange}
           margin='normal'

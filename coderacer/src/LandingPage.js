@@ -61,8 +61,7 @@ class LandingPage extends React.Component {
                             ? <Welcome onClick={handlePlayClick}/> 
                             : leaderboard
                                 ? <Leaderboard />
-                                : <UserProfile user_id={user_id} />
-                        
+                                : <UserProfile user_id={user_id} />                     
                         )
                 }
 

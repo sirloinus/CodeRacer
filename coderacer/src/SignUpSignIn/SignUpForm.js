@@ -40,15 +40,17 @@ class SignUpForm extends React.Component {
 
     return (
       <div className='sign_wrapper'>
-          Register:
+          {/* Register: */}
         <Form.Input
-          label='Username '
+          fluid
+          placeholder='Username'
           onChange={handleUsernameChange}
           margin='normal'
         />
         <br />
         <Form.Input
-          label='Password '
+          fluid
+          placeholder='Password'
           onChange={handlePWChange}
           margin='normal'
           name='password'
@@ -56,7 +58,7 @@ class SignUpForm extends React.Component {
         />
         <br />
         <Button onClick={handleSubmit}>
-          SUBMIT
+          SIGN UP
         </Button>
         {/* <Button onClick={handleLoginClick}>
             LOGIN
