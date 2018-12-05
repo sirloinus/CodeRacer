@@ -14,6 +14,7 @@ class LandingPage extends React.Component {
         viewGames: false,
         welcomePage: true,
         leaderboard: false,
+        setPic: false,
         user: ''
     }
 
@@ -27,6 +28,7 @@ class LandingPage extends React.Component {
     componentDidMount(){
         this.fetchUser(this.props.user_id)
     }
+
 
 
 

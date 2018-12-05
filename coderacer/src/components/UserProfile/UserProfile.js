@@ -63,15 +63,15 @@ class UserProfile extends React.Component {
                     :
                 <div >
                     <Webcam
-                    style={{ textAlign: "center",
-                    margin: "1em auto"
-                    }
-                    }
+                    style={{ 
+                        marginLeft: "550px",
+                        borderRadius: "50%"
+                    }}
                     audio={false}
-                    height={350}
+                    // height={350}
                     ref={this.setRef}
                     screenshotFormat="image/jpeg"
-                    width={350}
+                    // width={350}
                     videoConstraints={videoConstraints}
                     />
                     <button onClick={this.capture}>Capture photo</button>
@@ -82,41 +82,40 @@ class UserProfile extends React.Component {
 
 
 
-            <div>
+            <div style={{
+                      borderRadius: "10px",
+                      margin: "1 em auto",
+                      width: "90%",
+                      textAlign: "center" 
+                }}>
                 {
 
-                <Container>
-                    <SegmentGroup>
-                            <Segment.Group horizontal>
-                                <Segment>
+                <div style={{ marginLeft: "200px", tranform: "scale(1.3)"}}>
+                                {/* <Segment> */}
+                                    <div>
                                     {
                                         user.pic_url 
-                                        ? <img id="image" src={user.pic_url} alt="take a picture!" /> 
-                                        : <img id="image" src={localPic} alt="take a picture!" /> 
+                                        ? <img id="image" style={{borderRadius: "20%"}} src={user.pic_url} alt="take a picture!" /> 
+                                        : <img id="image" style={{borderRadius: "20%"}} src={localPic} alt="take a picture!" /> 
                                     }
-                                </Segment>
-                            <Segment.Group vertical>
-                                <Segment>
-                                        
-                                    {user.username}
 
-                                </Segment>
-                                <Segment >
+                                        <div style={{ fontFamily: "monospace", fontSize: "30px", paddingTop: "30px"}}>
                                             
- 
-                                </Segment>
-                                <Segment >
-                                    
-                                AVERAGE CHARS PER MIN
+                                        {user.username}
 
-                                </Segment>
-                            </Segment.Group>
+                                        </div>
+                                    </div>
+                                {/* </Segment> */}
+                            {/* <Segment.Group vertical> */}
+                                {/* <Segment> */}
+
+                                {/* </Segment> */}
+                        
+                            {/* </Segment.Group> */}
                 
-                            </Segment.Group>
-                        <Segment>
-                        </Segment>
-                    </SegmentGroup>
-                </Container>
+
+
+                </div>
 
                  }
 
