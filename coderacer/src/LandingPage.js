@@ -14,8 +14,14 @@ class LandingPage extends React.Component {
         viewGames: false,
         welcomePage: true,
         leaderboard: false,
+
+        mostAccUser: '',
+        speediestUser: '',
+        games: [],
+        sortedGamesSpeed: [],
+        rankedUsernames: [],
         setPic: false,
-        user: ''
+        user: '',
     }
 
     fetchUser = (user_id) => {
@@ -53,11 +59,53 @@ class LandingPage extends React.Component {
         this.setState({ viewGames: false, playing: false, welcomePage: false, leaderboard: false })
     }
 
+    getGames = () => {
+        fetch(`http://localhost:3000/api/v1/games`)
+            .then(resp => resp.json())
+            .then(games => {
+                this.setState({ games })
+                this.findSpeediestUser(games)
+                this.findMostAccUser(games)
+            }).then(this.rankUsers())
+    }
+
+    componentDidMount() {
+        this.getGames()
+    }
+
+    findMostAccUser = async games => {
+        const sorted = games.sort((a, b) => a.accuracy_percentage - b.accuracy_percentage)
+        const accu = sorted[sorted.length - 1]
+        const user = await this.findUser(accu.user_id)
+        this.setState({ mostAccUser: user })       
+    }
+
+    findSpeediestUser = async games => {
+        const sorted = games.sort((a, b) => a.characters_per_min - b.characters_per_min)
+        const speediest = sorted[sorted.length - 1]
+        const user = await this.findUser(speediest.user_id)
+        this.setState({ speediestUser: user, sortedGamesSpeed: sorted })
+        // return user.username
+    }
+
+    findUser = async userId => {
+        const response = await fetch(`http://localhost:3000/api/v1/users/${userId}`)
+        return response.json()
+    }
+
+    rankUsers = async () => {
+        const gamesCopy = [...this.state.sortedGamesSpeed]
+        const userIds = gamesCopy.map(game => game.user_id)
+        const userObjs = await userIds.map(userId => this.props.findUser(userId))
+        const rankedUsernames = userObjs.map(user => user.username)
+        this.setState({ rankedUsernames })
+    }
 
     render(){
         const { signout, user_id } = this.props
-        const { playing, viewGames, welcomePage, leaderboard, user } = this.state
-        const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick } = this
+        const { playing, viewGames, welcomePage, leaderboard, speediestUser, mostAccUser, sortedGamesSpeed, rankedUsernames, user } = this.state
+        const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick, findUser } = this
+
         return(
             <div>
                 <NavBar 
@@ -67,18 +115,17 @@ class LandingPage extends React.Component {
                     handleViewLeaderBoardClick={handleViewLeaderBoardClick}
                     handleViewProfileClick={handleViewProfileClick} 
                 />
-                <Button onClick={handlePlayClick}>Play!</Button>
+                {/* <Button onClick={handlePlayClick}>Play!</Button> */}
 
                 {   viewGames
                     ? <GamesList user_id={user_id}/>
                     : (playing
                         ? <CodeRacerContainer user_id={user_id} />
                         : welcomePage
-                            ? <Welcome onClick={handlePlayClick}/> 
+                            ? <Welcome handlePlayClick={handlePlayClick}/> 
                             : leaderboard
-                                ? <Leaderboard />
-                                : <UserProfile user_id={user_id} user={user} />
-                        
+                                ? <Leaderboard speediestUser={speediestUser} mostAccUser={mostAccUser} rankedUsernames={rankedUsernames} sortedGamesSpeed={sortedGamesSpeed} findUser={findUser}/>
+                                : <UserProfile user_id={user_id} user={user} />                     
 
                         )
                 }
