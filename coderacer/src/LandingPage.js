@@ -100,7 +100,7 @@ class LandingPage extends React.Component {
 
 
         const { playing, viewGames, welcomePage, leaderboard, speediestUser, mostAccUser, rankedUserObjs, sortedGamesSpeed, user } = this.state
-        const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick } = this
+        const { handlePlayClick, handleBackToMainClick, handleMyGamesClick, handleViewLeaderBoardClick, handleViewProfileClick, fetchUser } = this
 
 
         return(
@@ -121,7 +121,7 @@ class LandingPage extends React.Component {
                             ? <Welcome handlePlayClick={handlePlayClick}/> 
                             : leaderboard
                                 ? <Leaderboard speediestUser={speediestUser} mostAccUser={mostAccUser} rankedUserObjs={rankedUserObjs} sortedGamesSpeed={sortedGamesSpeed}/>
-                                : <UserProfile user_id={user_id} user={user} />                     
+                                : <UserProfile user_id={user_id} user={user} fetchUser={fetchUser} />                     
 
 
                         )
