@@ -1,6 +1,8 @@
 .webcam {
     margin: 0 auto;
-    width: 450px;
+    /* width: 450px; */
+    /* left: 50%; */
+    height: 100%;
     object-fit: cover;
     position: relative;
     text-align: centered;
@@ -17,3 +19,18 @@
 .pic-button {
     text-align: center;
 }
+
+.profile-image {
+    object-fit: contain;
+    height: auto;
+    width: auto;
+    /* width: 80%; */
+    border-radius: 50%;
+}
+
+/* .video {
+    height: auto;
+    width: auto;
+    border-radius: 50%;
+} */
+

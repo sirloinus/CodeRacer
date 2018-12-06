@@ -88,13 +88,11 @@ class UserProfile extends React.Component {
             // if so render the webcam so the user can take a new pic
 
             ?   <div className="pic-button">
-                    <Webcam
-                    style={{ borderRadius: "50%" }}
+                    <Webcam 
+                    className="profile-image"
                     audio={false}
-                    height={450}
                     ref={this.setRef}
                     screenshotFormat="image/jpeg"
-                    width={450}
                     />
                     { <Button onClick={this.takePicWithCountdown}>Capture photo</Button>}
                     <h1 className="centered">{elapsed}</h1>
@@ -105,7 +103,7 @@ class UserProfile extends React.Component {
 
                 ?   <div>
 
-                            <img objectFit="contain" src={localPic} alt="nothing" height={450} width={450} style={{ borderRadius: "50%" }}/>
+                            <img className="profile-image" src={localPic} alt="nothing"/>
 
                     </div>
                 :   user.pic_url 
@@ -113,19 +111,17 @@ class UserProfile extends React.Component {
 
                     ?   <div>
 
-                            <img objectFit="contain" src={user.pic_url} alt="nothing" height={450} width={450} style={{ borderRadius: "50%" }}/>
+                            <img className="profile-image" src={user.pic_url} alt="nothing"/>
 
                         </div>
 
                 // if there is no local/database pic, render the webcam so the user can take one
                     :   <div className="pic-button">
                             <Webcam
-                            style={{ borderRadius: "50%" }}
+                            className="profile-image"
                             audio={false}
-                            height={450}
                             ref={this.setRef}
                             screenshotFormat="image/jpeg"
-                            width={450}
                             />
                             { <Button onClick={this.takePicWithCountdown}>Capture photo</Button>}
                             <h1 className="centered">{elapsed}</h1>

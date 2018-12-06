@@ -43,8 +43,9 @@
 }
 
 .user_game_card_wrapper {
+  padding-top: 35px;
   max-width: 600px;
-  width: 70%;
+  width: 60%;
   margin: 1em auto;
 }
 
