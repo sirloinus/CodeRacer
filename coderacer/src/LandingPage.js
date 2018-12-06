@@ -68,15 +68,15 @@ class LandingPage extends React.Component {
     }
 
     findMostAccUser = async games => {
-        const sorted = games.sort((a, b) => a.accuracy_percentage - b.accuracy_percentage)
-        const accu = sorted[sorted.length - 1]
+        const sorted = games.sort((a, b) => a.accuracy_percentage - b.accuracy_percentage).reverse()
+        const accu = sorted[0]
         const user = await this.findUser(accu.user_id)
         this.setState({ mostAccUser: user })       
     }
 
     findSpeediestUser = async games => {
-        const sorted = games.sort((a, b) => a.characters_per_min - b.characters_per_min)
-        const speediest = sorted[sorted.length - 1]
+        const sorted = games.sort((a, b) => a.characters_per_min - b.characters_per_min).reverse()
+        const speediest = sorted[0]
         const user = await this.findUser(speediest.user_id)
         this.setState({ speediestUser: user, sortedGamesSpeed: sorted })
         this.rankUsers()
