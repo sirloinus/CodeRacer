@@ -6,3 +6,4 @@ Develop your codings skills through a speed-typing-style game.
 - Javascript and React.js used to build web-components. 
 - Back-end and API built with Ruby on Rails (https://github.com/BarneyLoosemore/CodeRacerRailsBackEnd)
 
+Demo-link of pre-login: https://youtu.be/vXDOJK9ipOk
